@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+mongoose.Schema.Types.Array.checkRequired((v) => Array.isArray(v) && v.length);
+
 const ProjectCreatorSchema = new mongoose.Schema({
   name: {
     type: String,
