@@ -908,4 +908,10 @@ a:focus {
 .btn-connect {
   margin-top: 80px; /* Add spacing above the button */
 }
+
+.proj-creator-info {
+  padding-left: 50px;
+  align-items: center;
+}
+
 /*# sourceMappingURL=style.css.map */
