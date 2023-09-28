@@ -9,6 +9,8 @@ app.use(express.json());
 
 
 // routes
+app.use("/api/v1/contributors", require("./routes/contributors"));
+app.use("/api/v1/project-creators", require("./routes/projectCreators"));
 
 const port = process.env.PORT || 5000;
 

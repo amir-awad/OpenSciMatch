@@ -1,0 +1,42 @@
+{
+  "contributors": [
+    {
+      "name": "Contributor 1",
+      "skills": ["Skill 1", "Skill 2", "Skill 3"],
+      "level_of_expertise": "Expert",
+      "availability": "2023-10-15"
+    },
+    {
+      "name": "Contributor 2",
+      "skills": ["Skill 2", "Skill 4", "Skill 5"],
+      "level_of_expertise": "Intermediate",
+      "availability": "2023-11-20"
+    },
+    {
+      "name": "Contributor 3",
+      "skills": ["Skill 1", "Skill 3", "Skill 6"],
+      "level_of_expertise": "Advanced",
+      "availability": "2023-12-05"
+    }
+  ],
+  "project_creators": [
+    {
+      "name": "Project Creator 1",
+      "project_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "mandatory_skills": ["Skill 1", "Skill 2"],
+      "desired_skills": ["Skill 3", "Skill 4"]
+    },
+    {
+      "name": "Project Creator 2",
+      "project_description": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "mandatory_skills": ["Skill 2", "Skill 3"],
+      "desired_skills": ["Skill 4", "Skill 5"]
+    },
+    {
+      "name": "Project Creator 3",
+      "project_description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "mandatory_skills": ["Skill 4", "Skill 5"],
+      "desired_skills": ["Skill 6", "Skill 7"]
+    }
+  ]
+}
