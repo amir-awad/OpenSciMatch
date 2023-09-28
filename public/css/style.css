@@ -886,9 +886,9 @@ a:focus {
 .circle-image img {
   width: 250px; /* Adjust the image size as needed */
   height: 250px; /* Adjust the image size as needed */
-  border-radius: 50%; /* Create a circular shape */
+  border-radius: 10%;
   object-fit: cover; /* Maintain aspect ratio and cover the entire circle */
-  margin-bottom: 10px; /* Add spacing below the image */
+  margin-bottom: 0px; /* Add spacing below the image */
 }
 
 /* Custom CSS for compatibility rating badge */
