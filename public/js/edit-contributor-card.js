@@ -11,6 +11,6 @@ function loadCard() {
     })
     .catch((error) => console.error("Error loading card.html:", error));
 }
-loadCard();
+// loadCard();
 // Call the function to load the card when the page loads
-// window.addEventListener("load", loadCard);
+window.addEventListener("load", loadCard);
