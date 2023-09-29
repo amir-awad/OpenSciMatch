@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+require("mongoose-type-email");
+mongoose.SchemaTypes.Email.defaults.message = "Email address is invalid";
 
 const ContributorSchema = new mongoose.Schema({
   name: {
@@ -12,9 +14,18 @@ const ContributorSchema = new mongoose.Schema({
   },
 
   email: {
-    type: String,
-    required: [true, "must provide an email"],
-    unique: true,
+    type: mongoose.SchemaTypes.Email,
+    validate: {
+      validator: async function (email) {
+        const user = await this.constructor.findOne({ email });
+        if (user) {
+          return this.id == user.id;
+        }
+        return true;
+      },
+      message: (props) => "The specified email address is already in use.",
+    },
+    required: [true, "User email required"],
   },
 
   skills: {

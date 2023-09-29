@@ -21,6 +21,7 @@ app.use(
   }),
 );
 
+app.use("/api/v1/auth", require("./routes/auth"));
 app.use("/api/v1/contributors", require("./routes/contributors"));
 app.use("/api/v1/project-creators", require("./routes/projectCreators"));
 
