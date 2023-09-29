@@ -56,14 +56,26 @@ const logout = async (req, res) => {
 
 const registerContributor = async (req, res) => {
   try {
-    const { name, password, email, skills, levelOfExpertise, availability } =
-      req.body;
-    const contributor = await Contributor.create({
+    const {
+      description,
       name,
       password,
       email,
+      contributorType,
+      phoneNumber,
       skills,
-      level_of_expertise: levelOfExpertise,
+      expertiseLevel,
+      availability,
+    } = req.body;
+    const contributor = await Contributor.create({
+      description,
+      name,
+      password,
+      email,
+      contributor_type: contributorType,
+      phone_number: phoneNumber,
+      skills,
+      expertise_level: expertiseLevel,
       availability: new Date(availability),
     });
 
@@ -79,6 +91,9 @@ const registerProjectCreator = async (req, res) => {
       name,
       password,
       email,
+      phoneNumber,
+      expertiseLevel,
+      contributorType,
       projectDescription,
       mandatorySkills,
       desiredSkills,
@@ -88,6 +103,9 @@ const registerProjectCreator = async (req, res) => {
       name,
       password,
       email,
+      phone_number: phoneNumber,
+      expertise_level: expertiseLevel,
+      contributor_type: contributorType,
       project_description: projectDescription,
       mandatory_skills: mandatorySkills,
       desired_skills: desiredSkills,

@@ -28,6 +28,21 @@ const ProjectCreatorSchema = new mongoose.Schema({
     required: [true, "User email required"],
   },
 
+  phone_number: {
+    type: String,
+    required: [true, "must provide a phone number"],
+  },
+
+  expertise_level: {
+    type: String,
+    required: [true, "must provide expertise level"],
+  },
+
+  contributor_type: {
+    type: String,
+    required: [true, "must provide a type of contributor"],
+  },
+
   project_description: {
     type: String,
     required: [true, "must provide a project description"],
