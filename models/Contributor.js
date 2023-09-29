@@ -3,6 +3,10 @@ require("mongoose-type-email");
 mongoose.SchemaTypes.Email.defaults.message = "Email address is invalid";
 
 const ContributorSchema = new mongoose.Schema({
+  description: {
+    type: String,
+    required: [true, "must provide a description"],
+  },
   name: {
     type: String,
     required: [true, "must provide a name"],
@@ -28,12 +32,22 @@ const ContributorSchema = new mongoose.Schema({
     required: [true, "User email required"],
   },
 
+  contributor_type: {
+    type: String,
+    required: [true, "must provide a contributor type"],
+  },
+
+  phone_number: {
+    type: String,
+    required: [true, "must provide a phone number"],
+  },
+
   skills: {
     type: Array,
     default: [],
   },
 
-  level_of_expertise: {
+  expertise_level: {
     type: String,
     required: [true, "must provide a level of expertise"],
   },
