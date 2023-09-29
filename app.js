@@ -1,14 +1,26 @@
 const express = require("express");
-const app = express();
+const session = require("express-session");
 const connectDB = require("./db/connect");
+
+const app = express();
+
+// Global configuration access
 require("dotenv").config();
 
 // middleware
 app.use(express.static("./public"));
 app.use(express.json());
 
-
 // routes
+
+app.use(
+  session({
+    secret: "secret", // used to sign the cookie
+    resave: false, // update session even w/ no changes
+    saveUninitialized: true, // always create a session
+  }),
+);
+
 app.use("/api/v1/contributors", require("./routes/contributors"));
 app.use("/api/v1/project-creators", require("./routes/projectCreators"));
 

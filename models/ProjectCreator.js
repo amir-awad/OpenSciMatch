@@ -8,6 +8,17 @@ const ProjectCreatorSchema = new mongoose.Schema({
     required: [true, "must provide a name"],
   },
 
+  password: {
+    type: String,
+    required: [true, "must provide a password"],
+  },
+
+  email: {
+    type: String,
+    required: [true, "must provide an email"],
+    unique: true,
+  },
+
   project_description: {
     type: String,
     required: [true, "must provide a project description"],
