@@ -55,6 +55,7 @@ const logout = async (req, res) => {
 };
 
 const registerContributor = async (req, res) => {
+  console.log(req.body);
   try {
     const {
       description,
@@ -79,8 +80,10 @@ const registerContributor = async (req, res) => {
       availability: new Date(availability),
     });
 
+    console.log("contributor registered successfully");
     res.status(201).send("contributor registered successfully!");
   } catch (error) {
+    console.log(error);
     res.status(500).json({ msg: error });
   }
 };
