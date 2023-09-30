@@ -4,6 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Login and Registration Form in HTML & CSS | CodingLab</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="./css/sign_in.css" />
     <!-- Fontawesome CDN Link -->
     <link
@@ -41,31 +42,43 @@
         <div class="form-content">
           <div class="login-form">
             <div class="title">Login</div>
-            <form action="#">
+            <form>
               <div class="input-boxes">
                 <div class="input-box">
                   <i class="fas fa-envelope"></i>
-                  <input type="text" placeholder="Enter your email" required />
+                  <input
+                    type="text"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                  />
                 </div>
                 <div class="input-box">
                   <i class="fas fa-lock"></i>
                   <input
                     type="password"
+                    id="password"
                     placeholder="Enter your password"
                     required
                   />
                 </div>
-                <div class="text"><a href="#">Forgot password?</a></div>
-                <div class="button input-box">
-                  <input type="submit" value="Sumbit" />
+                <div class="input-box">
+                  <select id="user-role" name="user-role">
+                    <option value="contributor">Contributor</option>
+                    <option value="project-creator">Project Creator</option>
+                  </select>
                 </div>
+                <div class="text"><a href="#">Forgot password?</a></div>
+                <div class="button input-box" id="submit-button">
+                  <input type="submit" value="Login" />
+                </div>
+                <div class="text sign-up-text">Don't have an account?</div>
                 <div class="text sign-up-text">
-                  Don't have an account? 
-              </div>
-              <div class="text sign-up-text">
                   <a href="sign_up_creator.html">Sign Up as A Creator</a> /
-                  <a href="sign_up_contributor.html">Sign Up as A Contributor</a>
-              </div>
+                  <a href="sign_up_contributor.html"
+                    >Sign Up as A Contributor</a
+                  >
+                </div>
               </div>
             </form>
           </div>
@@ -101,5 +114,6 @@
         </div>
       </div>
     </div>
+    <script src="js/sign_in.js"></script>
   </body>
 </html>
