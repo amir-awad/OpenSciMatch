@@ -80,7 +80,6 @@ const registerContributor = async (req, res) => {
       availability: new Date(availability),
     });
 
-    console.log("contributor registered successfully");
     res.status(201).send("contributor registered successfully!");
   } catch (error) {
     console.log(error);
@@ -114,14 +113,10 @@ const registerProjectCreator = async (req, res) => {
       mandatory_skills: mandatorySkills,
       good_to_have_skills: goodToHaveSkills,
     });
-    console.log("project creator registered successfully");
-    return {
-      statusCode: 201,
-      body: "project creator registered successfully",
-    };
+
+    res.status(201).send("project creator registered successfully!");
   } catch (error) {
-    console.log(error + "error");
-    return res.status(500).json({ msg: error });
+    res.status(500).json({ msg: error });
   }
 };
 

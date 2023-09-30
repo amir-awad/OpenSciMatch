@@ -56,8 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
       validateStatus: () => true,
     })
       .then((response) => {
-        console.log(response, "responseeee");
-
         if (response.status === 201) {
           window.location.href = "/index.html";
         } else {
@@ -65,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       })
       .catch((error) => {
-        console.log(error, "errorrrrrr");
         alert(error.response.data.msg);
       });
   });

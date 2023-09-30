@@ -95,18 +95,21 @@ document.addEventListener("DOMContentLoaded", function () {
       goodToHaveSkills,
     };
 
-    // Send a POST request to the backend
-    await axios
-      .post("/api/v1/auth/register-project-creator", data)
-      .then(function (response) {
-        if (response.statusCode === 201) {
-          window.location.href = "index.html";
+    await axios({
+      method: "post",
+      url: "/api/v1/auth/register-project-creator",
+      data: data,
+      validateStatus: () => true,
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          window.location.href = "/index.html";
         } else {
-          alert("Something went wrong. Please try again.");
+          alert(response.data.msg);
         }
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((error) => {
+        alert(error.response.data.msg);
       });
   });
 });
