@@ -53,7 +53,7 @@ const ProjectCreatorSchema = new mongoose.Schema({
     required: [true, "must provide at least one mandatory skill"],
   },
 
-  desired_skills: {
+  good_to_have_skills: {
     type: Array,
     default: [],
   },

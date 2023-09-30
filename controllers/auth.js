@@ -86,6 +86,7 @@ const registerContributor = async (req, res) => {
 };
 
 const registerProjectCreator = async (req, res) => {
+  console.log(req.body);
   try {
     const {
       name,
@@ -96,7 +97,7 @@ const registerProjectCreator = async (req, res) => {
       contributorType,
       projectDescription,
       mandatorySkills,
-      desiredSkills,
+      goodToHaveSkills,
     } = req.body;
 
     const projectCreator = await ProjectCreator.create({
@@ -108,12 +109,16 @@ const registerProjectCreator = async (req, res) => {
       contributor_type: contributorType,
       project_description: projectDescription,
       mandatory_skills: mandatorySkills,
-      desired_skills: desiredSkills,
+      good_to_have_skills: goodToHaveSkills,
     });
-
-    res.status(201).send("project creator registered successfully");
+    console.log("project creator registered successfully");
+    return {
+      statusCode: 201,
+      body: "project creator registered successfully",
+    };
   } catch (error) {
-    res.status(500).json({ msg: error });
+    console.log(error + "error");
+    return res.status(500).json({ msg: error });
   }
 };
 
