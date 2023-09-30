@@ -1,79 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registration Form for a Project Creator</title>
-    <link rel="stylesheet" href="css/sign_up_creator.css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/sign_up_creator.css" />
+  </head>
+  <body>
     <div class="container">
-        <h2>Registration Form for a Project Creator</h2>
-        <form id="registration-form">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone Number:</label>
-                <input type="text" id="phone" name="phone" required>
-            </div>
-            <div class="skills">
-                <label for="mandatory-skill">Mandatory Skill to Have:</label>
-                <select id="mandatory-skill" name="mandatory-skill" required>
-                    <option value="Web Development">Web Development</option>
-                    <option value="Graphic Design">Graphic Design</option>
-                    <option value="Data Analysis">Data Analysis</option>
-                    <option value="Marketing">Marketing</option>
-                </select>
-                <button type="button" id="add-mandatory-skill">Add Mandatory Skill</button>
+      <h2>Registration Form for a Project Creator</h2>
+      <form id="registration-form">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number:</label>
+          <input type="text" id="phone" name="phone" required />
+        </div>
+        <div class="skills">
+          <label for="mandatory-skill">Mandatory Skill to Have:</label>
+          <select id="mandatory-skill" name="mandatory-skill" required>
+            <option value="Web Development">Web Development</option>
+            <option value="Graphic Design">Graphic Design</option>
+            <option value="Data Analysis">Data Analysis</option>
+            <option value="Marketing">Marketing</option>
+          </select>
+          <button type="button" id="add-mandatory-skill">
+            Add Mandatory Skill
+          </button>
+        </div>
+        <div class="skills">
+          <label for="good-to-have-skill">Good to Have Skill:</label>
+          <select id="good-to-have-skill" name="good-to-have-skill">
+            <option value="Web Development">Web Development</option>
+            <option value="Graphic Design">Graphic Design</option>
+            <option value="Data Analysis">Data Analysis</option>
+            <option value="Marketing">Marketing</option>
+          </select>
+          <button type="button" id="add-good-to-have-skill">
+            Add Good-to-Have Skill
+          </button>
+        </div>
+        <div class="skill-list" id="skill-list">
+          <!-- Skills will be added here dynamically -->
+        </div>
+        <div class="form-group">
+          <label for="expertise-level">Expertise Level:</label>
+          <select id="expertise-level" name="expertise-level">
+            <option value="Beginner">Beginner</option>
+            <option value="Intermeddiate">Intermeddiate</option>
+            <option value="Expert">Expert</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="contributor-type">Select Type of Contributor:</label>
+          <select id="contributor-type" name="contributor-type">
+            <option value="Designer">Designer</option>
+            <option value="Developer">Developer</option>
+            <option value="Data Analyst">Data Analyst</option>
+            <option value="Marketer">Marketer</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="project-description">Project Description:</label>
+          <textarea
+            id="project-description"
+            name="project-description"
+            rows="4"
+            required
+          ></textarea>
+        </div>
 
-            </div>
-            <div class="skills">
-                <label for="good-to-have-skill">Good to Have Skill:</label>
-                <select id="good-to-have-skill" name="good-to-have-skill">
-                    <option value="Web Development">Web Development</option>
-                    <option value="Graphic Design">Graphic Design</option>
-                    <option value="Data Analysis">Data Analysis</option>
-                    <option value="Marketing">Marketing</option>
-                </select>
-                <button type="button" id="add-good-to-have-skill">Add Good-to-Have Skill</button>
-            </div>
-            <div class="skill-list" id="skill-list">
-                <!-- Skills will be added here dynamically -->
-            </div>
-            <div class="form-group">
-                <label for="expertise-level">Expertise Level:</label>
-            <select id="expertise-level" name="expertise-level">
-                <option value="Beginner">Beginner</option>
-                <option value="Intermeddiate">Intermeddiate</option>
-                <option value="Expert">Expert</option>
-            </select>
-            </div>  
-            <div class="form-group">
-                <label for="contributor-type">Select Type of Contributor:</label>
-                <select id="contributor-type" name="contributor-type">
-                    <option value="Designer">Designer</option>
-                    <option value="Developer">Developer</option>
-                    <option value="Data Analyst">Data Analyst</option>
-                    <option value="Marketer">Marketer</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="project-description">Project Description:</label>
-                <textarea id="project-description" name="project-description" rows="4" required></textarea>
-            </div>
-            
-            <div class="form-group">
-                <button type="submit">Submit</button>
-                
-            </div>
-        </form>
+        <div class="form-group creator-submit">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
     </div>
     <script src="js/sign_up_creator.js"></script>
-</body>
+  </body>
 </html>
