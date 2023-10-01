@@ -3,15 +3,15 @@ const ProjectCreator = require("../models/ProjectCreator");
 const userLogin = require("../db/procedures");
 
 const login = async (req, res) => {
-  if (req.session.username) {
+  if (req.session.user) {
     return res.status(409).send("you are already logged in!");
   }
   try {
     const { email, password, userRole } = req.body;
-    const contributor = await userLogin(email, password, userRole);
-    if (contributor) {
-      req.session.username = contributor.name;
-      res.status(201).json({ contributor });
+    const user = await userLogin(email, password, userRole);
+    if (user) {
+      req.session.user = user;
+      res.status(201).json({ user: user, role: userRole });
     } else {
       res.status(400).json({ msg: "invalid credentials" });
     }
@@ -21,7 +21,7 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  if (!req.session.username) {
+  if (!req.session.user) {
     return res.status(409).send("you are already logged out!");
   }
   try {

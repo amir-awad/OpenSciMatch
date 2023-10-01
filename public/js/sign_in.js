@@ -21,7 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then((response) => {
         if (response.status === 201) {
-          window.location.href = "#";
+          if (response.data.role == "project-creator") {
+            window.location.href = "/recom_contributors.html";
+          } else if (response.data.role == "contributor") {
+            window.location.href = "/recom_proj_creators.html";
+          }
         } else {
           alert("Invalid credentials");
         }
