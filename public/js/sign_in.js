@@ -19,13 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
       data: data,
       validateStatus: () => true,
     })
-      .then((response) => {
+      .then(async (response) => {
         if (response.status === 201) {
-          if (response.data.role == "project-creator") {
-            window.location.href = "/recom_contributors.html";
-          } else if (response.data.role == "contributor") {
-            window.location.href = "/recom_proj_creators.html";
-          }
         } else {
           alert("Invalid credentials");
         }

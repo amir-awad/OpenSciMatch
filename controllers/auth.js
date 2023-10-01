@@ -1,3 +1,4 @@
+const request = require("request-promise");
 const Contributor = require("../models/Contributor");
 const ProjectCreator = require("../models/ProjectCreator");
 const userLogin = require("../db/procedures");
@@ -10,8 +11,28 @@ const login = async (req, res) => {
     const { email, password, userRole } = req.body;
     const user = await userLogin(email, password, userRole);
     if (user) {
-      req.session.user = user;
-      res.status(201).json({ user: user, role: userRole });
+      const data = {
+        user: user,
+        role: userRole,
+      };
+
+      const options = {
+        method: "POST",
+        url: "http://127.0.0.1:3000/get-matched-users",
+        body: data,
+        json: true,
+      };
+
+      const sendRequest = await request(options)
+        .then(function (response) {
+          const matchedUsers = response["matchedUsers"];
+          console.log(matchedUsers, "matchedUsers");
+          req.session.user = user;
+          res.status(201).json({ user: user, role: userRole });
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
     } else {
       res.status(400).json({ msg: "invalid credentials" });
     }
