@@ -1,36 +1,65 @@
 const express = require("express");
 const session = require("express-session");
+const http = require("http");
+const socketIO = require("socket.io");
 const connectDB = require("./db/connect");
+const path = require("path");
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
 
 // Global configuration access
 require("dotenv").config();
 
-// middleware
-app.use(express.static("./public"));
+// Middleware
+app.use(express.static(path.join(__dirname, './public')));
 app.use(express.json());
 
-// routes
-
+// Session middleware
 app.use(
   session({
     secret: "secret", // used to sign the cookie
     resave: false, // update session even w/ no changes
     saveUninitialized: true, // always create a session
-  }),
+  })
 );
 
+// Routes
 app.use("/api/v1/auth", require("./routes/auth"));
 app.use("/api/v1/contributors", require("./routes/contributors"));
 app.use("/api/v1/project-creators", require("./routes/projectCreators"));
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+let name;
+
+io.on("connection", (socket) => {
+  console.log('new user connected');
+
+  socket.on('joining msg', (username) => {
+    name = username;
+    io.emit('chat message', `---${name} joined the chat---`);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+    io.emit('chat message', `---${name} left the chat---`);
+  });
+
+  socket.on('chat message', (msg) => {
+    socket.broadcast.emit('chat message', msg); // sending message to all except the sender
+  });
+});
 
 const port = process.env.PORT || 5000;
 
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
-    app.listen(port, () =>
+    server.listen(port, () =>
       console.log(`Server is listening on port ${port}...`),
     );
   } catch (error) {
