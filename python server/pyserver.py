@@ -52,14 +52,14 @@ def get_matched_users():
         project_creators = response.json()
         print(project_creators)
         # Extract relevant attributes for contributors and project creators
-        user_mandatory_skills = user.get('mandatory_skills')
+        user_mandatory_skills = user.get('skills')
         user_expertise = user.get('expertise_level')
         user_type = user.get('contributor_type')
         # Train Word2Vec model
         all_good_to_have_skills = [
             profile['good_to_have_skills'] for profile in project_creators]
         all_mandatory_skills = [profile['mandatory_skills']
-                                for profile in user + project_creators]
+                                for profile in project_creators + user["skills"]]
 
         # Contributor [Manadatory skills, Expertise level, Contributor type] ,
         # Project Creator [Manadatory skills, Good to have skills, Expertise level, Contributor type]
@@ -134,10 +134,10 @@ def get_matched_users():
         user_good_to_have_skills = user.get('good_to_have_skills', [])
         user_expertise = user.get('expertise_level')
         user_type = user.get('contributor_type')
-        all_good_to_have_skills = [
-            profile['good_to_have_skills'] for profile in project_creators]
-        all_mandatory_skills = [profile['mandatory_skills']
-                                for profile in user + project_creators]
+        all_good_to_have_skills = [user["good_to_have_skills"]]
+        all_mandatory_skills = [profile['skills']
+                                for profile in contributors + user["mandatory_skills"]]
+
         model = Word2Vec(all_mandatory_skills + all_good_to_have_skills,
                          vector_size=100, window=5, min_count=1, sg=0)
 
