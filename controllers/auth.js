@@ -104,6 +104,7 @@ const registerContributor = async (req, res) => {
       expertise_level: expertiseLevel,
       availability: new Date(availability),
     });
+    console.log(req.body, `Contributor registered: ${contributor}`);
 
     res.status(201).send("contributor registered successfully!");
   } catch (error) {
@@ -127,6 +128,21 @@ const registerProjectCreator = async (req, res) => {
       goodToHaveSkills,
     } = req.body;
 
+    // remove the "Remove" suffix in each mandatory skill and good to have skill
+    for (let i = 0; i < mandatorySkills.length; i++) {
+      mandatorySkills[i] = mandatorySkills[i].substring(
+        0,
+        mandatorySkills[i].length - 6,
+      );
+    }
+
+    for (let i = 0; i < goodToHaveSkills.length; i++) {
+      goodToHaveSkills[i] = goodToHaveSkills[i].substring(
+        0,
+        goodToHaveSkills[i].length - 6,
+      );
+    }
+
     const projectCreator = await ProjectCreator.create({
       name,
       password,
@@ -138,6 +154,8 @@ const registerProjectCreator = async (req, res) => {
       mandatory_skills: mandatorySkills,
       good_to_have_skills: goodToHaveSkills,
     });
+
+    console.log(req.body, `Creator registered: ${projectCreator}`);
 
     res.status(201).send("project creator registered successfully!");
   } catch (error) {

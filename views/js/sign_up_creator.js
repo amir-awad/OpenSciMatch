@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then((response) => {
         if (response.status === 201) {
-          window.location.href = "/index.html";
+          window.location.href = "/";
         } else {
           alert(response.data.msg);
         }
