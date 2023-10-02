@@ -137,7 +137,7 @@ def get_matched_users():
     elif role == 'project-creator':
         # Similar logic as above, but for project creators matching with contributors
         response = requests.get('http://127.0.0.1:5000/api/v1/contributors')
-        contributors = response.json()
+        contributors = response.json().get('contributors')
         print(contributors)
         user_mandatory_skills = user.get('mandatory_skills')
         # Default to an empty list if not provided
@@ -145,8 +145,11 @@ def get_matched_users():
         user_expertise = user.get('expertise_level')
         user_type = user.get('contributor_type')
         all_good_to_have_skills = [user["good_to_have_skills"]]
-        all_mandatory_skills = [profile['skills']
-                                for profile in contributors + user["mandatory_skills"]]
+        all_mandatory_skills = user['mandatory_skills']
+        for i in range(len(contributors)):
+            skills = contributors[i].get('skills')
+            if(len(skills) > 0):
+                all_mandatory_skills.append(contributors[i].get('skills'))
 
         model = Word2Vec(all_mandatory_skills + all_good_to_have_skills,
                          vector_size=100, window=5, min_count=1, sg=0)
@@ -155,24 +158,26 @@ def get_matched_users():
 
         for contributor in contributors:
             if user_type == contributor['contributor_type']:
-                if set(contributor['good_to_have_skills']).issubset(set(user_mandatory_skills)):
+                if(all(skill in user_mandatory_skills for skill in contributor['skills'])):
+                # if set(contributor['skills']).issubset(set(user_mandatory_skills)):
                     good_to_have_skills_similarity = 1.0
                 else:
                     good_to_have_skills_similarity = cosine_similarity(
                         average_word_vectors(
                             user_mandatory_skills, model, 100),
                         average_word_vectors(
-                            contributor['good_to_have_skills'], model, 100)
+                            contributor['skills'], model, 100)
                     )
-
-                if set(contributor['mandatory_skills']).issubset(set(user_mandatory_skills)):
+                    
+                if(all(skill in user_mandatory_skills for skill in contributor['skills'])):
+                # if set(contributor['skills']).issubset(set(user_mandatory_skills)):
                     mandatory_skills_similarity = 1.0
                 else:
                     mandatory_skills_similarity = cosine_similarity(
                         average_word_vectors(
                             user_mandatory_skills, model, 100),
                         average_word_vectors(
-                            contributor['mandatory_skills'], model, 100)
+                            contributor['skills'], model, 100)
                     )
 
                 user_expertise_value = expertise_level_mapping.get(

@@ -32,6 +32,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const skills = Array.from(skillList.children).map(
       (skillItem) => skillItem.textContent,
     );
+    // remove the "Remove suffix" from each skill
+    for (let i = 0; i < skills.length; i++) {
+      skills[i] = skills[i].substring(0, skills[i].length - 6);
+    }
     const expertiseLevel = document.getElementById("expertise-level").value;
     const availability = document.getElementById("availability-date").value;
     const description = document.getElementById("description").value;

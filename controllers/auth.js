@@ -7,6 +7,15 @@ const login = async (req, res) => {
   if (req.session.user) {
     return res.status(409).send("you are already logged in!");
   }
+  res.render("index", {
+    error: "",
+  });
+};
+
+const checkLogin = async (req, res) => {
+  if (req.session.user) {
+    return res.status(409).send("you are already logged in!");
+  }
   try {
     const { email, password, userRole } = req.body;
     const user = await userLogin(email, password, userRole);
@@ -27,20 +36,28 @@ const login = async (req, res) => {
       const sendRequest = await request(options)
         .then(function (response) {
           matchedUsers = response["matchedUsers"];
+          console.log(matchedUsers, matchedUsers);
           req.session.user = user;
         })
         .catch(function (err) {
           console.log(err);
         });
 
-      res
-        .status(201)
-        .json({ user: user, role: userRole, matchedUsers: matchedUsers });
+      console.log("logged in successfully!");
+      res.render("recommend", {
+        user: user,
+        role: userRole,
+        matchedUsers: matchedUsers,
+      });
     } else {
-      res.status(400).json({ msg: "invalid credentials" });
+      res.render("index", {
+        error: "invalid credentials",
+      });
     }
   } catch (error) {
-    res.status(500).json({ msg: error });
+    res.render("index", {
+      error: "Internal server error",
+    });
   }
 };
 
@@ -51,9 +68,11 @@ const logout = async (req, res) => {
   try {
     req.session.destroy((err) => {
       if (err) {
-        return res.status(500).json({ msg: err });
+        return res.redirect("/", {
+          error: "Something went wrong",
+        });
       }
-      res.status(200).json({ msg: "logged out" });
+      res.redirect("/");
     });
   } catch (error) {
     res.status(500).json({ msg: error });
@@ -128,6 +147,7 @@ const registerProjectCreator = async (req, res) => {
 
 module.exports = {
   login,
+  checkLogin,
   logout,
   registerContributor,
   registerProjectCreator,

@@ -4,7 +4,6 @@
   <head>
     <meta charset="UTF-8" />
     <title>Login and Registration Form in HTML & CSS | CodingLab</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="./css/sign_in.css" />
     <!-- Fontawesome CDN Link -->
     <link
@@ -42,11 +41,12 @@
         <div class="form-content">
           <div class="login-form">
             <div class="title">Login</div>
-            <form>
+            <form method="POST" action="/">
               <div class="input-boxes">
                 <div class="input-box">
                   <i class="fas fa-envelope"></i>
                   <input
+                    name="email"
                     type="text"
                     id="email"
                     placeholder="Enter your email"
@@ -56,6 +56,7 @@
                 <div class="input-box">
                   <i class="fas fa-lock"></i>
                   <input
+                    name="password"
                     type="password"
                     id="password"
                     placeholder="Enter your password"
@@ -63,7 +64,7 @@
                   />
                 </div>
                 <div class="input-box">
-                  <select id="user-role" name="user-role">
+                  <select id="userRole" name="userRole">
                     <option value="contributor">Contributor</option>
                     <option value="project-creator">Project Creator</option>
                   </select>
@@ -72,6 +73,9 @@
                 <div class="button input-box" id="submit-button">
                   <input type="submit" value="Login" />
                 </div>
+                <% if (error) { %>
+                <div class="text"><%= error %></div>
+                <% } %>
                 <div class="text sign-up-text">Don't have an account?</div>
                 <div class="text sign-up-text">
                   <a href="sign_up_creator.html">Sign Up as A Creator</a> /
@@ -82,38 +86,8 @@
               </div>
             </form>
           </div>
-          <div class="signup-form">
-            <div class="title">Signup</div>
-            <form action="#">
-              <div class="input-boxes">
-                <div class="input-box">
-                  <i class="fas fa-user"></i>
-                  <input type="text" placeholder="Enter your name" required />
-                </div>
-                <div class="input-box">
-                  <i class="fas fa-envelope"></i>
-                  <input type="text" placeholder="Enter your email" required />
-                </div>
-                <div class="input-box">
-                  <i class="fas fa-lock"></i>
-                  <input
-                    type="password"
-                    placeholder="Enter your password"
-                    required
-                  />
-                </div>
-                <div class="button input-box">
-                  <input type="submit" value="Sumbit" />
-                </div>
-                <div class="text sign-up-text">
-                  Already have an account? <label for="flip">Login now</label>
-                </div>
-              </div>
-            </form>
-          </div>
         </div>
       </div>
     </div>
-    <script src="js/sign_in.js"></script>
   </body>
 </html>

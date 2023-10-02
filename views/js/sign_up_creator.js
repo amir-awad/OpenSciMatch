@@ -75,6 +75,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const skillItems = document.querySelectorAll(".skill-item");
     skillItems.forEach(function (skillItem) {
       const skillText = skillItem.textContent;
+      // remove the "Remove" suffix from each skill
+      skillItem.textContent = skillText.substring(0, skillText.length - 6);
       if (skillText.startsWith("Mandatory")) {
         mandatorySkills.push(skillText.split(": ")[1]);
       } else if (skillText.startsWith("Good to Have")) {

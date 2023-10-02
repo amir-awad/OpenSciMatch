@@ -69,8 +69,8 @@
                 </li>
               </ul>
               <div class="user_option">
-                <a href="">
-                  <span> Login </span>
+                <a href="/api/v1/auth/logout">
+                  <span> Logout </span>
                 </a>
                 <form
                   class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0"
@@ -97,18 +97,106 @@
       <!-- end header section -->
     </div>
 
-    <!-- start cards section -->
+    <div class="col-md-12 text-center mb-4">
+      <h2>Welcome, <%= user.name %>!</h2>
+    </div>
+
     <section class="freelance_section layout_padding">
       <div class="container" id="card-container">
         <div class="row">
           <div class="col-md-12 text-center mb-4">
-            <h2>You Are Being Matched...</h2>
+            <h2>You Are Matched !</h2>
           </div>
+
+          <!-- start cards section -->
+          <% if (role === 'contributor') { %> <% matchedUsers.forEach((user) =>
+          { %>
+          <!-- Project Creator Card -->
+          <div class="col-md-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <!-- Left Section (Picture) -->
+                  <div class="col-md-3">
+                    <div class="circle-image">
+                      <img src="./images/me.jpeg" alt="<%= user.name %>" />
+                    </div>
+                  </div>
+                  <!-- Middle Section (Name, Project Description, Skills, and Rating) -->
+                  <div class="col-md-6 proj-creator-info">
+                    <h5 class="card-title"><%= user.name %></h5>
+                    <!-- Project Description -->
+                    <p class="card-text">
+                      Project Description: <%= user.project_description %>
+                    </p>
+                    <!-- Mandatory Skills -->
+                    <p class="card-text">
+                      Mandatory Skills: <%= user.mandatory_skills.join(', ') %>
+                    </p>
+                    <!-- Good-to-Have Skills -->
+                    <p class="card-text">
+                      Good-to-Have Skills: <% if (user.good_to_have_skills) %>
+                      <%= user.good_to_have_skills.join(', ') %>
+                    </p>
+                    <!-- Project Creator Rating -->
+                    <p class="card-text">Project Creator Rating: 4.5</p>
+                    <button class="btn btn-primary btn-connect">Connect</button>
+                  </div>
+                  <!-- Right Section (Compatibility Rating) -->
+                  <div class="col-md-3 compatibility-rating">
+                    <!-- Project Creator Rating Badge -->
+                    <span class="badge badge-primary">4.5/5</span>
+                    <h6 class="compatibility-text">Creator Rating</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }); %> <% } else if (role == 'project-creator') { %> <%
+          matchedUsers.forEach((user) => { %>
+          <!-- Contributor Card -->
+          <div class="col-md-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <!-- Left Section (Picture) -->
+                  <div class="col-md-3">
+                    <div class="circle-image">
+                      <img src="./images/me.jpeg" alt="<%= user.name %>" />
+                    </div>
+                  </div>
+                  <!-- Middle Section (Name, Skills, Expertise Level) -->
+                  <div class="col-md-6 contributor-info text-center">
+                    <h5 class="card-title"><%= user.name %></h5>
+                    <p class="card-text">
+                      Skills: <%= user.skills.join(', ') %>
+                    </p>
+                    <p class="card-text">
+                      Expertise Level: <%= user.expertiseLevel %>
+                    </p>
+                    <button
+                      class="btn btn-primary btn-connect"
+                      href="chat.html"
+                    >
+                      Connect
+                    </button>
+                  </div>
+                  <!-- Right Section (Compatibility Rating) -->
+                  <div class="col-md-3 compatibility-rating">
+                    <span class="badge badge-primary">90%</span>
+                    <h6 class="compatibility-text">Compatibility Rate</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% }); %> <% } %>
+
+          <!-- end cards section -->
         </div>
       </div>
     </section>
-
-    <!-- end cards section -->
 
     <!-- info section -->
 
@@ -247,6 +335,5 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/custom.js"></script>
-    <script src="js/edit-contributor-card.js"></script>
   </body>
 </html>
