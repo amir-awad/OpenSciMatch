@@ -19,14 +19,18 @@ document.addEventListener("DOMContentLoaded", function () {
       data: data,
       validateStatus: () => true,
     })
-      .then(async (response) => {
+      .then((response) => {
         if (response.status === 201) {
+          const { user, role, matchedUsers } = response.data;
+          if (role == "contributor") {
+            // route to the 
+          }
         } else {
           alert("Invalid credentials");
         }
       })
       .catch((error) => {
-        console.log(error);
+        alert(error.response.data.msg);
       });
   });
 });

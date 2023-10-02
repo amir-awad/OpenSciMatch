@@ -23,16 +23,19 @@ const login = async (req, res) => {
         json: true,
       };
 
+      let matchedUsers = [];
       const sendRequest = await request(options)
         .then(function (response) {
-          const matchedUsers = response["matchedUsers"];
-          console.log(matchedUsers, "matchedUsers");
+          matchedUsers = response["matchedUsers"];
           req.session.user = user;
-          res.status(201).json({ user: user, role: userRole });
         })
         .catch(function (err) {
           console.log(err);
         });
+
+      res
+        .status(201)
+        .json({ user: user, role: userRole, matchedUsers: matchedUsers });
     } else {
       res.status(400).json({ msg: "invalid credentials" });
     }

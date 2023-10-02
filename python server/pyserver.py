@@ -49,17 +49,27 @@ def get_matched_users():
     if role == 'contributor':
         response = requests.get(
             'http://127.0.0.1:5000/api/v1/project-creators')
-        project_creators = response.json()
+        project_creators = response.json().get('projectCreators')
         print(project_creators)
         # Extract relevant attributes for contributors and project creators
         user_mandatory_skills = user.get('skills')
         user_expertise = user.get('expertise_level')
         user_type = user.get('contributor_type')
         # Train Word2Vec model
-        all_good_to_have_skills = [
-            profile['good_to_have_skills'] for profile in project_creators]
-        all_mandatory_skills = [profile['mandatory_skills']
-                                for profile in project_creators + user["skills"]]
+        # all_good_to_have_skills = [
+        #     profile['good_to_have_skills'] for profile in project_creators]
+        all_good_to_have_skills = []
+        for i in range(len(project_creators)):
+            good_to_have_skills = project_creators[i].get('good_to_have_skills')
+            if(len(good_to_have_skills) > 0):
+                all_good_to_have_skills.append(project_creators[i].get('good_to_have_skills'))
+        
+            
+        all_mandatory_skills = []
+        for i in range(len(project_creators)):
+            mandatory_skills = project_creators[i].get('mandatory_skills')
+            if(len(mandatory_skills) > 0):
+                all_mandatory_skills.append(project_creators[i].get('mandatory_skills'))
 
         # Contributor [Manadatory skills, Expertise level, Contributor type] ,
         # Project Creator [Manadatory skills, Good to have skills, Expertise level, Contributor type]
