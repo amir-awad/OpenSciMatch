@@ -2,11 +2,15 @@ from flask import Flask, request, jsonify
 import requests
 import numpy as np
 from gensim.models import Word2Vec
+from flask import Flask, request, render_template
+import spacy
 
 app = Flask(__name__)
 
-
+# -----------------------------------------------------------For the matching logic-----------------------------------------------------------#
 # Calculate document vectors (average of word vectors)
+
+
 def average_word_vectors(words, model, num_features):
     feature_vector = np.zeros((num_features,), dtype="float32")
     n_words = 0
@@ -186,6 +190,66 @@ def get_matched_users():
 
     else:
         return jsonify({"error": "Invalid role"}), 400
+# -----------------------------------------------------------End of matching logic-----------------------------------------------------------#
+
+
+# -----------------------------------------------------------For the chatbot-----------------------------------------------------------#
+# Load the spaCy NLP model
+nlp = spacy.load("en_core_web_sm")
+
+# Define a list of predefined skills
+predefined_skills = ["astrophysics", "rocket science",
+                     "orbital mechanics", "space exploration"]
+
+# Function to extract multi-word skills
+
+
+def extract_multi_word_skills(doc):
+    skills = []
+    current_skill = ""
+
+    for token in doc:
+        if token.text.lower() in predefined_skills:
+            if current_skill:
+                skills.append(current_skill)
+                current_skill = ""
+            current_skill += token.text
+        else:
+            if current_skill:
+                current_skill += " "
+            current_skill += token.text
+
+    if current_skill:
+        skills.append(current_skill)
+
+    return skills
+
+# Define a basic HTML form for user input
+
+
+@app.route("/chatbot.html", methods=["GET", "POST"])
+def chatbot():
+    user_input = ""
+    skills = []
+    expertise_level = None
+    contributor_type = None
+
+    if request.method == "POST":
+        user_input = request.form.get("user_input")
+        doc = nlp(user_input)
+        skills = extract_multi_word_skills(doc)
+
+        for token in doc:
+            if token.text.lower() in ["beginner", "intermediate", "advanced", "expert"]:
+                expertise_level = token.text.lower()
+                break
+
+        for token in doc:
+            if token.text.lower() in ["developer", "designer", "researcher", "writer"]:
+                contributor_type = token.text.lower()
+                break
+
+    return render_template("chatbot.html", user_input=user_input, skills=skills, expertise_level=expertise_level, contributor_type=contributor_type)
 
 
 if __name__ == '__main__':
