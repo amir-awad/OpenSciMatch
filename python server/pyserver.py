@@ -12,7 +12,7 @@ def average_word_vectors(words, model, num_features):
     n_words = 0
 
     for word in words:
-        if word in model.wv:
+        if isinstance(word, str) and word in model.wv:
             n_words += 1
             feature_vector = np.add(feature_vector, model.wv[word])
 
@@ -60,16 +60,18 @@ def get_matched_users():
         #     profile['good_to_have_skills'] for profile in project_creators]
         all_good_to_have_skills = []
         for i in range(len(project_creators)):
-            good_to_have_skills = project_creators[i].get('good_to_have_skills')
-            if(len(good_to_have_skills) > 0):
-                all_good_to_have_skills.append(project_creators[i].get('good_to_have_skills'))
-        
-            
+            good_to_have_skills = project_creators[i].get(
+                'good_to_have_skills')
+            if (len(good_to_have_skills) > 0):
+                all_good_to_have_skills.append(
+                    project_creators[i].get('good_to_have_skills'))
+
         all_mandatory_skills = []
         for i in range(len(project_creators)):
             mandatory_skills = project_creators[i].get('mandatory_skills')
-            if(len(mandatory_skills) > 0):
-                all_mandatory_skills.append(project_creators[i].get('mandatory_skills'))
+            if (len(mandatory_skills) > 0):
+                all_mandatory_skills.append(
+                    project_creators[i].get('mandatory_skills'))
 
         # Contributor [Manadatory skills, Expertise level, Contributor type] ,
         # Project Creator [Manadatory skills, Good to have skills, Expertise level, Contributor type]
@@ -148,7 +150,7 @@ def get_matched_users():
         all_mandatory_skills = user['mandatory_skills']
         for i in range(len(contributors)):
             skills = contributors[i].get('skills')
-            if(len(skills) > 0):
+            if (len(skills) > 0):
                 all_mandatory_skills.append(contributors[i].get('skills'))
 
         model = Word2Vec(all_mandatory_skills + all_good_to_have_skills,
@@ -158,8 +160,8 @@ def get_matched_users():
 
         for contributor in contributors:
             if user_type == contributor['contributor_type']:
-                if(all(skill in user_mandatory_skills for skill in contributor['skills'])):
-                # if set(contributor['skills']).issubset(set(user_mandatory_skills)):
+                if (all(skill in user_mandatory_skills for skill in contributor['skills'])):
+                    # if set(contributor['skills']).issubset(set(user_mandatory_skills)):
                     good_to_have_skills_similarity = 1.0
                 else:
                     good_to_have_skills_similarity = cosine_similarity(
@@ -168,9 +170,9 @@ def get_matched_users():
                         average_word_vectors(
                             contributor['skills'], model, 100)
                     )
-                    
-                if(all(skill in user_mandatory_skills for skill in contributor['skills'])):
-                # if set(contributor['skills']).issubset(set(user_mandatory_skills)):
+
+                if (all(skill in user_mandatory_skills for skill in contributor['skills'])):
+                    # if set(contributor['skills']).issubset(set(user_mandatory_skills)):
                     mandatory_skills_similarity = 1.0
                 else:
                     mandatory_skills_similarity = cosine_similarity(
