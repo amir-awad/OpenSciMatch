@@ -27,10 +27,11 @@ app.use(
     secret: "secret", // used to sign the cookie
     resave: false, // update session even w/ no changes
     saveUninitialized: true, // always create a session
-  })
+  }),
 );
 
 app.use("/", require("./routes/loginPage"));
+app.use("/recommend", require("./routes/recommendations"));
 app.use("/api/v1/auth", require("./routes/auth"));
 app.use("/api/v1/contributors", require("./routes/contributors"));
 app.use("/api/v1/project-creators", require("./routes/projectCreators"));
@@ -42,20 +43,20 @@ app.get("/", (req, res) => {
 let name;
 
 io.on("connection", (socket) => {
-  console.log('new user connected');
+  console.log("new user connected");
 
-  socket.on('joining msg', (username) => {
+  socket.on("joining msg", (username) => {
     name = username;
-    io.emit('chat message', `---${name} joined the chat---`);
+    io.emit("chat message", `---${name} joined the chat---`);
   });
 
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-    io.emit('chat message', `---${name} left the chat---`);
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+    io.emit("chat message", `---${name} left the chat---`);
   });
 
-  socket.on('chat message', (msg) => {
-    socket.broadcast.emit('chat message', msg); // sending message to all except the sender
+  socket.on("chat message", (msg) => {
+    socket.broadcast.emit("chat message", msg); // sending message to all except the sender
   });
 });
 

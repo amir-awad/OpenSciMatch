@@ -5,7 +5,7 @@ const userLogin = require("../db/procedures");
 
 const login = async (req, res) => {
   if (req.session.user) {
-    return res.status(409).send("you are already logged in!");
+    return res.redirect("/recommend");
   }
   res.render("index", {
     error: "",
@@ -14,7 +14,7 @@ const login = async (req, res) => {
 
 const checkLogin = async (req, res) => {
   if (req.session.user) {
-    return res.status(409).send("you are already logged in!");
+    return res.redirect("/recommend");
   }
   try {
     const { email, password, userRole } = req.body;
@@ -40,18 +40,17 @@ const checkLogin = async (req, res) => {
           similarity_details = response["similarity_details"];
           console.log(matchedUsers, matchedUsers);
           req.session.user = user;
+          req.session.role = userRole;
+          req.session.matchedUsers = matchedUsers;
         })
         .catch(function (err) {
           console.log(err);
         });
 
       console.log("logged in successfully!");
-      res.render("recommend", {
-        user: user,
-        role: userRole,
-        matchedUsers: matchedUsers,
-        similarity_details: similarity_details,
-      });
+
+      // redirect to "/recommend" page with user, role, matchedUsers, and similarity_detail by using res.redirect and url query
+      res.redirect("/recommend");
     } else {
       res.render("index", {
         error: "invalid credentials",
