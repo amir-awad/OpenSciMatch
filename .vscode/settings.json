@@ -1,3 +1,7 @@
 {
-  "cSpell.words": ["redir"]
+  "cSpell.words": ["redir"],
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "python.formatting.provider": "none"
 }

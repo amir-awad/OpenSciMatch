@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const http = require("http");
 const socketIO = require("socket.io");
+const path = require("path");
 const connectDB = require("./db/connect");
 const path = require("path");
 
@@ -12,9 +13,15 @@ const io = socketIO(server);
 // Global configuration access
 require("dotenv").config();
 
-// Middleware
-app.use(express.static(path.join(__dirname, './public')));
+// set the view engine to ejs
+app.set("view engine", "ejs");
+
+// middleware
+app.use(express.static("./views"));
+app.use("/", express.static(path.join(__dirname + "public")));
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // Session middleware
 app.use(
@@ -25,7 +32,7 @@ app.use(
   })
 );
 
-// Routes
+app.use("/", require("./routes/loginPage"));
 app.use("/api/v1/auth", require("./routes/auth"));
 app.use("/api/v1/contributors", require("./routes/contributors"));
 app.use("/api/v1/project-creators", require("./routes/projectCreators"));
