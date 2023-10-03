@@ -4,8 +4,6 @@ const http = require("http");
 const socketIO = require("socket.io");
 const path = require("path");
 const connectDB = require("./db/connect");
-const path = require("path");
-
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
