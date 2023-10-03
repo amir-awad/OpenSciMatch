@@ -166,8 +166,8 @@ def get_matched_users():
                         matching_type = "good-match"
                         contributor_with_similarity["similarity"]["matching-type"] = matching_type
 
-                # Append the contributor with similarity details to the matched_users list
-                matched_users.append(contributor_with_similarity)
+                    # Append the contributor with similarity details to the matched_users list
+                    matched_users.append(contributor_with_similarity)
                         
         # Sort matched_users first by "mandatory_skills_similarity" in descending order, then by "expertise_level_similarity," and finally by "good_to_have_skills_similarity"
         matched_users.sort(key=lambda x: (
