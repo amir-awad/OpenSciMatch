@@ -33,9 +33,11 @@ const checkLogin = async (req, res) => {
       };
 
       let matchedUsers = [];
+      let similarity_details = [];
       const sendRequest = await request(options)
         .then(function (response) {
           matchedUsers = response["matchedUsers"];
+          similarity_details = response["similarity_details"];
           console.log(matchedUsers, matchedUsers);
           req.session.user = user;
         })
@@ -48,6 +50,7 @@ const checkLogin = async (req, res) => {
         user: user,
         role: userRole,
         matchedUsers: matchedUsers,
+        similarity_details: similarity_details,
       });
     } else {
       res.render("index", {

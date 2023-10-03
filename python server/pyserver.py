@@ -169,12 +169,9 @@ def get_matched_users():
                     # Append the contributor with similarity details to the matched_users list
                     matched_users.append(contributor_with_similarity)
                         
-        # Sort matched_users first by "mandatory_skills_similarity" in descending order, then by "expertise_level_similarity," and finally by "good_to_have_skills_similarity"
-        matched_users.sort(key=lambda x: (
-            x.get("mandatory_skills_similarity", 0),
-            x.get("expertise_level_similarity", 0),
-            x.get("good_to_have_skills_similarity", 0)
-        ), reverse=True)
+        # Sort matched_users by mandatory_skills_similarity in descending order
+        matched_users.sort(key=lambda x: x["similarity"]["combined_similarity"], reverse=True)
+
         print(matched_users, " matched users")
         print(similarity_details, " similarity details")
         
