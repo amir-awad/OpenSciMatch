@@ -5,10 +5,6 @@ const recommend = async (req, res) => {
   try {
     const { user, role, matchedUsers, similarity_details } = req.session;
 
-    console.log(user, "user");
-    console.log(role, "role");
-    console.log(matchedUsers, "matchedUsers");
-
     res.render("recommend", {
       user: user,
       role: role,

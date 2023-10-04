@@ -42,14 +42,13 @@ def get_matched_users():
     print(received_data, " received data")
     user = received_data.get('user')
     role = received_data.get('role')
+    users_to_match = received_data.get('usersToMatch')
 
     if user is None or role is None:
         return jsonify({"error": "User data missing"}), 400
 
     if role == 'contributor':
-        response = requests.get(
-            'http://127.0.0.1:5000/api/v1/project-creators')
-        project_creators = response.json().get('projectCreators')
+        project_creators = users_to_match
         print(project_creators)
         # Extract relevant attributes for contributors and project creators
         user_mandatory_skills = user.get('skills')
@@ -86,15 +85,14 @@ def get_matched_users():
                          vector_size=100, window=5, min_count=1, sg=0)
 
         matched_users = []
-        similarity_details = []
-        
+
 # Mandatory skills [skill1, skill2, skill3] Project Creator
 # Mandatory skills [skill1, skill2, skill3,skill4,skill5] Contributor
 
         for project_creator in project_creators:
             # Check if the contributor types match
             if user_type == project_creator['contributor_type']:
-                
+
                 # Check if mandatory skills are a subset of mandatory skills
                 if set(project_creator['mandatory_skills']).issubset(set(user_mandatory_skills)):
                     mandatory_skills_similarity = 1.0
@@ -117,7 +115,7 @@ def get_matched_users():
                             average_word_vectors(
                                 project_creator['good_to_have_skills'], model, 100)
                         )
-                    
+
                     # Map expertise levels to numerical values
                     user_expertise_value = expertise_level_mapping.get(
                         user_expertise, 0.0)
@@ -134,16 +132,18 @@ def get_matched_users():
                         good_to_have_skills_similarity + expertise_level_similarity
                     )
                     combined_similarity = float(combined_similarity)
-                    mandatory_skills_similarity = float(mandatory_skills_similarity)
-                    good_to_have_skills_similarity = float(good_to_have_skills_similarity)
-                    expertise_level_similarity = float(expertise_level_similarity)
+                    mandatory_skills_similarity = float(
+                        mandatory_skills_similarity)
+                    good_to_have_skills_similarity = float(
+                        good_to_have_skills_similarity)
+                    expertise_level_similarity = float(
+                        expertise_level_similarity)
                     matching_type = ""  # Initialize matching_type
 
-                    
                     # Initialize the dictionary to hold the contributor and similarity details
                     contributor_with_similarity = {
-                            "project_creator": project_creator,
-                            "similarity": {
+                        "project_creator": project_creator,
+                        "similarity": {
                             "mandatory_skills_similarity": mandatory_skills_similarity,
                             "good_to_have_skills_similarity": good_to_have_skills_similarity,
                             "expertise_level_similarity": expertise_level_similarity,
@@ -151,7 +151,7 @@ def get_matched_users():
                         }
                     }
 
-                                        # Check if combined similarity = 3 make it a perfect match
+                    # Check if combined similarity = 3 make it a perfect match
                     if combined_similarity == 3:
                         matching_type = "perfect-match"
                         contributor_with_similarity["similarity"]["matching-type"] = matching_type
@@ -168,20 +168,18 @@ def get_matched_users():
 
                     # Append the contributor with similarity details to the matched_users list
                     matched_users.append(contributor_with_similarity)
-                        
+
         # Sort matched_users by mandatory_skills_similarity in descending order
-        matched_users.sort(key=lambda x: x["similarity"]["combined_similarity"], reverse=True)
+        matched_users.sort(
+            key=lambda x: x["similarity"]["combined_similarity"], reverse=True)
 
         print(matched_users, " matched users")
-        print(similarity_details, " similarity details")
-        
 
-        return jsonify({"matchedUsers": matched_users, "similarityDetails": similarity_details})
+        return jsonify({"matchedUsers": matched_users})
 
     elif role == 'project-creator':
         # Similar logic as above, but for project creators matching with contributors
-        response = requests.get('http://127.0.0.1:5000/api/v1/contributors')
-        contributors = response.json().get('contributors')
+        contributors = users_to_match
         print(contributors)
         user_mandatory_skills = user.get('mandatory_skills')
         # Default to an empty list if not provided
@@ -202,7 +200,6 @@ def get_matched_users():
                          vector_size=100, window=5, min_count=1, sg=0)
 
         matched_users = []
-        similarity_details = []
 
         for contributor in contributors:
             if user_type == contributor['contributor_type']:
@@ -232,7 +229,6 @@ def get_matched_users():
                                 contributor['skills'], model, 100)
                         )
 
-                    
                     user_expertise_value = expertise_level_mapping.get(
                         user_expertise, 0.0)
                     contributor_expertise_value = expertise_level_mapping.get(
@@ -247,27 +243,32 @@ def get_matched_users():
                     )
 
                     combined_similarity = float(combined_similarity)
-                    mandatory_skills_similarity = float(mandatory_skills_similarity)
-                    good_to_have_skills_similarity = float(good_to_have_skills_similarity)
-                    expertise_level_similarity = float(expertise_level_similarity)
+                    mandatory_skills_similarity = float(
+                        mandatory_skills_similarity)
+                    good_to_have_skills_similarity = float(
+                        good_to_have_skills_similarity)
+                    expertise_level_similarity = float(
+                        expertise_level_similarity)
                     print(combined_similarity, " combined similarity")
-                    print(mandatory_skills_similarity, " mandatory skills similarity")
-                    print(good_to_have_skills_similarity, " good to have skills similarity")
-                    print(expertise_level_similarity, " expertise level similarity")
-                    
-                    
+                    print(mandatory_skills_similarity,
+                          " mandatory skills similarity")
+                    print(good_to_have_skills_similarity,
+                          " good to have skills similarity")
+                    print(expertise_level_similarity,
+                          " expertise level similarity")
+
                     # Initialize the dictionary to hold the contributor and similarity details
                     contributor_with_similarity = {
-                            "contributor": contributor,
-                            "similarity": {
+                        "contributor": contributor,
+                        "similarity": {
                             "mandatory_skills_similarity": mandatory_skills_similarity,
                             "good_to_have_skills_similarity": good_to_have_skills_similarity,
                             "expertise_level_similarity": expertise_level_similarity,
                             "combined_similarity": combined_similarity
                         }
                     }
-                        
-                                        # Check if combined similarity = 3 make it a perfect match
+
+                    # Check if combined similarity = 3 make it a perfect match
                     if combined_similarity == 3:
                         matching_type = "perfect-match"
                         contributor_with_similarity["similarity"]["matching-type"] = matching_type
@@ -284,7 +285,7 @@ def get_matched_users():
 
                     # Append the contributor with similarity details to the matched_users list
                     matched_users.append(contributor_with_similarity)
-                        
+
         # Sort matched_users first by "mandatory_skills_similarity" in descending order, then by "expertise_level_similarity," and finally by "good_to_have_skills_similarity"
         matched_users.sort(key=lambda x: (
             x.get("mandatory_skills_similarity", 0),
@@ -293,7 +294,7 @@ def get_matched_users():
         ), reverse=True)
         print(matched_users, " matched users")
 
-        return jsonify({"matchedUsers": matched_users, "similarityDetails": similarity_details})
+        return jsonify({"matchedUsers": matched_users})
 
     else:
         return jsonify({"error": "Invalid role"}), 400

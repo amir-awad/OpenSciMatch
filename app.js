@@ -35,6 +35,7 @@ app.use("/recommend", require("./routes/recommendations"));
 app.use("/api/v1/auth", require("./routes/auth"));
 app.use("/api/v1/contributors", require("./routes/contributors"));
 app.use("/api/v1/project-creators", require("./routes/projectCreators"));
+app.use("/search", require("./routes/search"));
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");

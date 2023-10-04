@@ -20,12 +20,26 @@ const checkLogin = async (req, res) => {
     const { email, password, userRole } = req.body;
     const user = await userLogin(email, password, userRole);
     if (user) {
-      const data = {
-        user: user,
-        role: userRole,
-      };
+      let usersToMatch = {};
+      let data = {};
+      let options = {};
+      if (userRole === "contributor") {
+        usersToMatch = await ProjectCreator.find({});
+        data = {
+          user: user,
+          role: userRole,
+          usersToMatch: usersToMatch,
+        };
+      } else if (userRole === "project-creator") {
+        usersToMatch = await Contributor.find({});
+        data = {
+          user: user,
+          role: userRole,
+          usersToMatch: usersToMatch,
+        };
+      }
 
-      const options = {
+      options = {
         method: "POST",
         url: "http://127.0.0.1:3000/get-matched-users",
         body: data,
@@ -33,12 +47,10 @@ const checkLogin = async (req, res) => {
       };
 
       let matchedUsers = [];
-      let similarity_details = [];
-      const sendRequest = await request(options)
+      await request(options)
         .then(function (response) {
           matchedUsers = response["matchedUsers"];
-          similarity_details = response["similarity_details"];
-          console.log(matchedUsers, matchedUsers);
+          console.log(matchedUsers, "matchedUsers in auth.js");
           req.session.user = user;
           req.session.role = userRole;
           req.session.matchedUsers = matchedUsers;
