@@ -69,13 +69,13 @@
                     <option value="project-creator">Project Creator</option>
                   </select>
                 </div>
+                <% if (error) { %>
+                <div class="text"><%= error %></div>
+                <% } %>
                 <div class="text"><a href="#">Forgot password?</a></div>
                 <div class="button input-box" id="submit-button">
                   <input type="submit" value="Login" />
                 </div>
-                <% if (error) { %>
-                <div class="text"><%= error %></div>
-                <% } %>
                 <div class="text sign-up-text">Don't have an account?</div>
                 <div class="text sign-up-text">
                   <a href="sign_up_creator.html">Sign Up as A Creator</a> /
