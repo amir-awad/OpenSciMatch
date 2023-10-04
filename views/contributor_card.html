@@ -1,32 +1,151 @@
-<div class="row">
-  <div class="col-md-12 text-center mb-4">
-    <h2>You Are Matched!</h2>
-  </div>
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
-<div class="col-md-12 mb-4">
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <!-- Left Section (Picture) -->
-        <div class="col-md-3">
-          <div class="circle-image">
-            <img src="./images/me.jpeg" alt="Contributor 1" />
+    <title>OpenSciMatch</title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet" />
+    <style>
+      /* Style for the profile card container */
+.card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* Style for the circle image */
+.circle-image {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.circle-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Style for card title */
+.card-title {
+  font-size: 20px; /* Decreased font size */
+  font-weight: bold;
+}
+
+/* Style for card text */
+.card-text {
+  font-size: 14px; /* Decreased font size */
+  margin-bottom: 10px;
+}
+
+/* Style for the "Connect" button */
+.btn-connect {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px; /* Decreased font size */
+  cursor: pointer;
+}
+
+.btn-connect:hover {
+  background-color: #0056b3;
+}
+
+/* Style for compatibility rating badge */
+.compatibility-rating .badge-primary {
+  background-color: #28a745; /* Green color */
+}
+
+/* Style for compatibility rating text */
+.compatibility-text {
+  font-size: 14px; /* Decreased font size */
+  font-weight: bold;
+  margin-top: 5px;
+  color: #28a745; /* Match the badge color */
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="col-md-12 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <!-- Left Section (Picture) -->
+            <div class="col-md-3">
+              <div class="circle-image">
+                <img src="./images/me.jpeg" alt="<%= user.project_creator.name %>" />
+              </div>
+            </div>
+            <!-- Middle Section (Name, Project Description, Skills, and Rating) -->
+            <div class="col-md-6 proj-creator-info">
+              <h5 class="card-title"></h5>
+              <!-- Project Description -->
+              <p class="card-text">
+                Project Description: 
+              </p>
+              <!-- Mandatory Skills -->
+              <p class="card-text">
+                Mandatory Skills: 
+              </p>
+              <!-- Good-to-Have Skills -->
+              <p class="card-text">
+                Good-to-Have Skills: 
+              </p>
+              <!-- Project Creator Rating -->
+              <p class="card-text">Project Creator Rating: 4.5</p>
+              <!-- Matching Type and Similarity -->
+              <p class="card-text">
+                Matching Type: 
+              </p>
+              <p class="card-text">
+                Combined Similarity: 
+              </p>
+              <p class="card-text">
+                Expertise Level Similarity: 
+              </p>
+              <p class="card-text">
+                Good-to-Have Skills Similarity: 
+              </p>
+              <p class="card-text">
+                Mandatory Skills Similarity:
+              </p>
+              <button class="btn btn-primary btn-connect">Connect</button>
+            </div>
+            <!-- Right Section (Compatibility Rating) -->
+            <div class="col-md-3 compatibility-rating">
+              <!-- Project Creator Rating Badge -->
+              <span class="badge badge-primary">4.5/5</span>
+              <h6 class="compatibility-text">Creator Rating</h6>
+            </div>
           </div>
-        </div>
-        <!-- Middle Section (Name, Skills, Expertise Level) -->
-        <div class="col-md-6 contributor-info text-center">
-          <h5 class="card-title">Amir Tarek</h5>
-          <p class="card-text">Skills: Skill 1, Skill 2, Skill 3</p>
-          <p class="card-text">Expertise Level: Expert</p>
-          <button class="btn btn-primary btn-connect" href="chat.html">Connect</button>
-        </div>
-        <!-- Right Section (Compatibility Rating) -->
-        <div class="col-md-3 compatibility-rating">
-          <span class="badge badge-primary">90%</span>
-          <h6 class="compatibility-text">Compatibility Rate</h6>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </body>
+</html>
