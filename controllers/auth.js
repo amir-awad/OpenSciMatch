@@ -51,15 +51,17 @@ const checkLogin = async (req, res) => {
         .then(function (response) {
           matchedUsers = response["matchedUsers"];
           console.log(matchedUsers, "matchedUsers in auth.js");
-          req.session.user = user;
-          req.session.role = userRole;
-          req.session.matchedUsers = matchedUsers;
+          req.session.recommendMatchedUsers = matchedUsers;
         })
         .catch(function (err) {
           console.log(err);
         });
 
-      console.log("logged in successfully!");
+      req.session.user = user;
+      req.session.role = userRole;
+      console.log(
+        `logged in successfully! with userRole = ${req.session.role}`,
+      );
 
       // redirect to "/recommend" page with user, role, matchedUsers, and similarity_detail by using res.redirect and url query
       res.redirect("/recommend");

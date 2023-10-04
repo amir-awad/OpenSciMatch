@@ -3,12 +3,13 @@ const recommend = async (req, res) => {
     return res.redirect("/");
   }
   try {
-    const { user, role, matchedUsers, similarity_details } = req.session;
+    const { user, role, recommendMatchedUsers, similarity_details } =
+      req.session;
 
     res.render("recommend", {
       user: user,
       role: role,
-      matchedUsers: matchedUsers,
+      matchedUsers: recommendMatchedUsers,
       similarity_details: similarity_details,
     });
   } catch (error) {
