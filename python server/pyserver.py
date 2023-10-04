@@ -85,7 +85,6 @@ def get_matched_users():
                          vector_size=100, window=5, min_count=1, sg=0)
 
         matched_users = []
-        similarity_details = []
 
 # Mandatory skills [skill1, skill2, skill3] Project Creator
 # Mandatory skills [skill1, skill2, skill3,skill4,skill5] Contributor
@@ -175,9 +174,8 @@ def get_matched_users():
             key=lambda x: x["similarity"]["combined_similarity"], reverse=True)
 
         print(matched_users, " matched users")
-        print(similarity_details, " similarity details")
 
-        return jsonify({"matchedUsers": matched_users, "similarityDetails": similarity_details})
+        return jsonify({"matchedUsers": matched_users})
 
     elif role == 'project-creator':
         # Similar logic as above, but for project creators matching with contributors
@@ -202,7 +200,6 @@ def get_matched_users():
                          vector_size=100, window=5, min_count=1, sg=0)
 
         matched_users = []
-        similarity_details = []
 
         for contributor in contributors:
             if user_type == contributor['contributor_type']:
@@ -297,7 +294,7 @@ def get_matched_users():
         ), reverse=True)
         print(matched_users, " matched users")
 
-        return jsonify({"matchedUsers": matched_users, "similarityDetails": similarity_details})
+        return jsonify({"matchedUsers": matched_users})
 
     else:
         return jsonify({"error": "Invalid role"}), 400

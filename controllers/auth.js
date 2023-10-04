@@ -30,13 +30,6 @@ const checkLogin = async (req, res) => {
           role: userRole,
           usersToMatch: usersToMatch,
         };
-
-        options = {
-          method: "POST",
-          url: "http://127.0.0.1:3000/get-matched-users",
-          body: data,
-          json: true,
-        };
       } else if (userRole === "project-creator") {
         usersToMatch = await Contributor.find({});
         data = {
@@ -44,14 +37,14 @@ const checkLogin = async (req, res) => {
           role: userRole,
           usersToMatch: usersToMatch,
         };
-
-        options = {
-          method: "POST",
-          url: "http://127.0.0.1:3000/get-matched-users",
-          body: data,
-          json: true,
-        };
       }
+
+      options = {
+        method: "POST",
+        url: "http://127.0.0.1:3000/get-matched-users",
+        body: data,
+        json: true,
+      };
 
       let matchedUsers = [];
       await request(options)
