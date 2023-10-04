@@ -74,6 +74,8 @@
                 </a>
                 <form
                   class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0"
+                  method="GET"
+                  action="/search"
                 >
                   <button
                     class="btn my-2 my-sm-0 nav_search-btn"
@@ -104,70 +106,80 @@
     <section class="freelance_section layout_padding">
       <div class="container" id="card-container">
         <div class="row">
+          <% if (!(matchedUsers.length === 0)) { %>
           <div class="col-md-12 text-center mb-4">
             <h2>You Are Matched !</h2>
           </div>
-
           <!-- start cards section -->
           <% if (role === 'contributor') { %> <% matchedUsers.forEach((user) =>
           { %>
-         <!-- Project Creator Card -->
-<div class="col-md-12 mb-4">
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <!-- Left Section (Picture) -->
-        <div class="col-md-3">
-          <div class="circle-image">
-            <img src="./images/me.jpeg" alt="<%= user.project_creator.name %>" />
+          <!-- Project Creator Card -->
+          <div class="col-md-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <!-- Left Section (Picture) -->
+                  <div class="col-md-3">
+                    <div class="circle-image">
+                      <img
+                        src="./images/me.jpeg"
+                        alt="<%= user.project_creator.name %>"
+                      />
+                    </div>
+                  </div>
+                  <!-- Middle Section (Name, Project Description, Skills, and Rating) -->
+                  <div class="col-md-6 proj-creator-info">
+                    <h5 class="card-title"><%= user.project_creator.name %></h5>
+                    <!-- Project Description -->
+                    <p class="card-text">
+                      Project Description: <%=
+                      user.project_creator.project_description %>
+                    </p>
+                    <!-- Mandatory Skills -->
+                    <p class="card-text">
+                      Mandatory Skills: <%=
+                      user.project_creator.mandatory_skills.join(', ') %>
+                    </p>
+                    <!-- Good-to-Have Skills -->
+                    <p class="card-text">
+                      Good-to-Have Skills: <% if
+                      (user.project_creator.good_to_have_skills) %> <%=
+                      user.project_creator.good_to_have_skills.join(', ') %>
+                    </p>
+                    <!-- Project Creator Rating -->
+                    <p class="card-text">Project Creator Rating: 4.5</p>
+                    <!-- Matching Type and Similarity -->
+                    <p class="card-text">
+                      Matching Type: <%= user.similarity["matching-type"] %>
+                    </p>
+                    <p class="card-text">
+                      Combined Similarity: <%=
+                      user.similarity.combined_similarity %>
+                    </p>
+                    <p class="card-text">
+                      Expertise Level Similarity: <%=
+                      user.similarity.expertise_level_similarity %>
+                    </p>
+                    <p class="card-text">
+                      Good-to-Have Skills Similarity: <%=
+                      user.similarity.good_to_have_skills_similarity %>
+                    </p>
+                    <p class="card-text">
+                      Mandatory Skills Similarity: <%=
+                      user.similarity.mandatory_skills_similarity %>
+                    </p>
+                    <button class="btn btn-primary btn-connect">Connect</button>
+                  </div>
+                  <!-- Right Section (Compatibility Rating) -->
+                  <div class="col-md-3 compatibility-rating">
+                    <!-- Project Creator Rating Badge -->
+                    <span class="badge badge-primary">4.5/5</span>
+                    <h6 class="compatibility-text">Creator Rating</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <!-- Middle Section (Name, Project Description, Skills, and Rating) -->
-        <div class="col-md-6 proj-creator-info">
-          <h5 class="card-title"><%= user.project_creator.name %></h5>
-          <!-- Project Description -->
-          <p class="card-text">
-            Project Description: <%= user.project_creator.project_description %>
-          </p>
-          <!-- Mandatory Skills -->
-          <p class="card-text">
-            Mandatory Skills: <%= user.project_creator.mandatory_skills.join(', ') %>
-          </p>
-          <!-- Good-to-Have Skills -->
-          <p class="card-text">
-            Good-to-Have Skills: <% if (user.project_creator.good_to_have_skills) %>
-            <%= user.project_creator.good_to_have_skills.join(', ') %>
-          </p>
-          <!-- Project Creator Rating -->
-          <p class="card-text">Project Creator Rating: 4.5</p>
-          <!-- Matching Type and Similarity -->
-          <p class="card-text">
-            Matching Type: <%= user.similarity["matching-type"] %>
-          </p>
-          <p class="card-text">
-            Combined Similarity: <%= user.similarity.combined_similarity %>
-          </p>
-          <p class="card-text">
-            Expertise Level Similarity: <%= user.similarity.expertise_level_similarity %>
-          </p>
-          <p class="card-text">
-            Good-to-Have Skills Similarity: <%= user.similarity.good_to_have_skills_similarity %>
-          </p>
-          <p class="card-text">
-            Mandatory Skills Similarity: <%= user.similarity.mandatory_skills_similarity %>
-          </p>
-          <button class="btn btn-primary btn-connect">Connect</button>
-        </div>
-        <!-- Right Section (Compatibility Rating) -->
-        <div class="col-md-3 compatibility-rating">
-          <!-- Project Creator Rating Badge -->
-          <span class="badge badge-primary">4.5/5</span>
-          <h6 class="compatibility-text">Creator Rating</h6>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
           <% }); %> <% } else if (role == 'project-creator') { %> <%
           matchedUsers.forEach((user) => { %>
@@ -179,7 +191,10 @@
                   <!-- Left Section (Picture) -->
                   <div class="col-md-3">
                     <div class="circle-image">
-                      <img src="./images/me.jpeg" alt="<%= user.contributor.name %>" />
+                      <img
+                        src="./images/me.jpeg"
+                        alt="<%= user.contributor.name %>"
+                      />
                     </div>
                   </div>
                   <!-- Middle Section (Name, Skills, Expertise Level) -->
@@ -191,7 +206,10 @@
                     <p class="card-text">
                       Expertise Level: <%= user.contributor.expertise_level %>
                     </p>
-                    <button class="btn btn-primary btn-connect" href="chat.html">
+                    <button
+                      class="btn btn-primary btn-connect"
+                      href="chat.html"
+                    >
                       Connect
                     </button>
                   </div>
@@ -199,19 +217,22 @@
                   <div class="col-md-3 compatibility-rating">
                     <span class="badge badge-primary">90%</span>
                     <h6 class="compatibility-text">Compatibility Rate</h6>
-                    
+
                     <!-- Similarity -->
                     <p class="card-text">
                       Similarity: <%= user.similarity.combined_similarity %>
                     </p>
                     <p class="card-text">
-                      Expertise Level Similarity: <%= user.similarity.expertise_level_similarity %>
+                      Expertise Level Similarity: <%=
+                      user.similarity.expertise_level_similarity %>
                     </p>
                     <p class="card-text">
-                      Good-to-Have Skills Similarity: <%= user.similarity.good_to_have_skills_similarity %>
+                      Good-to-Have Skills Similarity: <%=
+                      user.similarity.good_to_have_skills_similarity %>
                     </p>
                     <p class="card-text">
-                      Mandatory Skills Similarity: <%= user.similarity.mandatory_skills_similarity %>
+                      Mandatory Skills Similarity: <%=
+                      user.similarity.mandatory_skills_similarity %>
                     </p>
                     <p class="card-text">
                       Matching Type: <%= user.similarity['matching-type'] %>
@@ -221,9 +242,12 @@
               </div>
             </div>
           </div>
-          
 
-          <% }); %> <% } %>
+          <% }); %> <% } %> <% } else { %>
+          <div class="col-md-12 text-center mb-4">
+            <h2>Sorry, no matches found! Try our search engine</h2>
+          </div>
+          <% } %>
 
           <!-- end cards section -->
         </div>
