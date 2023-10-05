@@ -84,11 +84,11 @@ const logout = async (req, res) => {
   try {
     req.session.destroy((err) => {
       if (err) {
-        return res.redirect("/", {
+        return res.redirect("/login", {
           error: "Something went wrong",
         });
       }
-      res.redirect("/");
+      res.redirect("/login");
     });
   } catch (error) {
     res.status(500).json({ msg: error });
@@ -105,6 +105,7 @@ const registerContributor = async (req, res) => {
       email,
       contributorType,
       phoneNumber,
+
       skills,
       expertiseLevel,
       availability,

@@ -19,15 +19,11 @@
         <div class="front">
           <img src="images/Contributor.png" alt="" />
           <div class="text">
-            <span class="text-1"
-              >Every new friend is a <br />
-              new adventure</span
-            >
+            <a href="/" class="text-1">OpenSciMatch</a>
             <span class="text-2">Let's get connected</span>
           </div>
         </div>
         <div class="back">
-          <!--<img class="backImg" src="images/backImg.jpg" alt="">-->
           <div class="text">
             <span class="text-1"
               >Complete miles of journey <br />
@@ -41,7 +37,7 @@
         <div class="form-content">
           <div class="login-form">
             <div class="title">Login</div>
-            <form method="POST" action="/">
+            <form method="POST" action="/login">
               <div class="input-boxes">
                 <div class="input-box">
                   <i class="fas fa-envelope"></i>
@@ -72,7 +68,6 @@
                 <% if (error) { %>
                 <div class="text"><%= error %></div>
                 <% } %>
-                <div class="text"><a href="#">Forgot password?</a></div>
                 <div class="button input-box" id="submit-button">
                   <input type="submit" value="Login" />
                 </div>

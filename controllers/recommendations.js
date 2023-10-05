@@ -1,6 +1,6 @@
 const recommend = async (req, res) => {
   if (!req.session.user) {
-    return res.redirect("/");
+    return res.redirect("/login");
   }
   try {
     const { user, role, recommendMatchedUsers, similarity_details } =

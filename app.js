@@ -7,6 +7,8 @@ const connectDB = require("./db/connect");
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
+const File = require("./models/UploadedFile");
+const multer = require("multer");
 
 // Global configuration access
 require("dotenv").config();
@@ -30,15 +32,57 @@ app.use(
   }),
 );
 
-app.use("/", require("./routes/loginPage"));
+app.use("/", require("./routes/home"));
+app.use("/login", require("./routes/loginPage"));
 app.use("/recommend", require("./routes/recommendations"));
 app.use("/api/v1/auth", require("./routes/auth"));
 app.use("/api/v1/contributors", require("./routes/contributors"));
 app.use("/api/v1/project-creators", require("./routes/projectCreators"));
 app.use("/search", require("./routes/search"));
 
-app.get("/", (req, res) => {
+app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
+});
+
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "/uploads");
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split("/")[1];
+    cb(null, `files/admin-${file.fieldname}-${Date.now()}.${ext}`);
+  },
+});
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.split("/")[1] === "pdf") {
+    cb(null, true);
+  } else {
+    cb(new Error("Not a pdf file! Please upload only pdf files."), false);
+  }
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+//API Endpoint for uploading file
+app.post("/api/uploadFile", upload.single("myFile"), async (req, res) => {
+  try {
+    const newFile = await File.create({
+      name: req.file.filename,
+    });
+
+    res.status(200).json({
+      status: "success",
+      message: "File created successfully!",
+    });
+  } catch (error) {
+    res.json({
+      error,
+    });
+  }
 });
 
 let name;
