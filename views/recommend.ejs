@@ -27,6 +27,15 @@
     <link href="css/style.css" rel="stylesheet" />
     <!-- responsive style -->
     <link href="css/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
 
   <body class="sub_page">
@@ -114,67 +123,60 @@
           <% if (role === 'contributor') { %> <% matchedUsers.forEach((user) =>
           { %>
           <!-- Project Creator Card -->
-          <div class="col-md-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <!-- Left Section (Picture) -->
-                  <div class="col-md-3">
-                    <div class="circle-image">
-                      <img
-                        src="./images/me.jpeg"
-                        alt="<%= user.project_creator.name %>"
-                      />
+          <div class="full price_table padding_infor_info">
+            <div class="row">
+              <!-- column contact -->
+              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
+                <div class="contact_blog">
+                  <div class="contact_inner">
+                    <div class="left">
+                      <h3><%= user.project_creator.name %></h3>
+                      <p><strong>Project Description: </strong><%= user.project_creator.project_description %></p>
+                      <ul class="list-unstyled">
+                          <li><i class="fa fa-envelope-o"></i>  <%= user.project_creator.email  %></li>
+                          <li><i class="fa fa-phone"></i>  <%= user.project_creator.phone_number %></li>
+                          <li>
+                              <a href="#manElement" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-star" style="color: #58718a;"></i>  Mandatory Skills</span></a>
+                              <ul class="collapse list-unstyled" id="manElement">
+                                <% user.project_creator.mandatory_skills.forEach((skill) => { %>
+                                 <li> <span>&emsp; &emsp;&emsp;<%= skill %></span></a></li>
+                                  <% }); %>
+                              </ul>
+                          </li>
+                          <li>
+                            <a href="#goodElement" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-star" style="color: #58718a;"></i>  Desired Skills</span></a>
+                            <ul class="collapse list-unstyled" id="goodElement">
+                              <% user.project_creator.good_to_have_skills.forEach((skill) => { %>
+                               <li> <span>&emsp; &emsp;&emsp;<%= skill %></span></a></li>
+                                <% }); %>
+                            </ul>
+                        </li>
+                          <li><i class="fa-solid fa-book" style="color: #58718a;"></i>&nbsp;  Matching type : <%= user.similarity["matching-type"] %>
+                          
+                        </ul><br><br><br>
+                        <div style="margin-top: 60px; width: max-content;">
+                          <span style="background-color: #3bb017; padding: 5px 10px; margin-right: 10px;color: white; font-weight:350;" title="Combined Similarity"><strong>CS: <%= user.similarity.combined_similarity %></strong></span>
+                          <span style="background-color: #0d49c1; padding: 5px 10px; margin-right: 10px;color: white;font-weight:350;" title="Expertise Level Similarity"><strong>ES: <%= user.similarity.expertise_level_similarity %></strong></span>
+                          <span style="background-color: #a8490e; padding: 5px 10px; margin-right: 10px;color: white;font-weight:350;" title="Good-to-Have Skills Similarity"><strong>GS: <%= user.similarity.good_to_have_skills_similarity %></strong></span>
+                          <span style="background-color: #860f74; padding: 5px 10px;color: white;font-weight:350;" title="Mandatory Skills Similarity"><strong>MS: <%= user.similarity.mandatory_skills_similarity %></strong></span>
+                        </div>  
+                        
                     </div>
-                  </div>
-                  <!-- Middle Section (Name, Project Description, Skills, and Rating) -->
-                  <div class="col-md-6 proj-creator-info">
-                    <h5 class="card-title"><%= user.project_creator.name %></h5>
-                    <!-- Project Description -->
-                    <p class="card-text">
-                      Project Description: <%=
-                      user.project_creator.project_description %>
-                    </p>
-                    <!-- Mandatory Skills -->
-                    <p class="card-text">
-                      Mandatory Skills: <%=
-                      user.project_creator.mandatory_skills.join(', ') %>
-                    </p>
-                    <!-- Good-to-Have Skills -->
-                    <p class="card-text">
-                      Good-to-Have Skills: <% if
-                      (user.project_creator.good_to_have_skills) %> <%=
-                      user.project_creator.good_to_have_skills.join(', ') %>
-                    </p>
-                    <!-- Project Creator Rating -->
-                    <p class="card-text">Project Creator Rating: 4.5</p>
-                    <!-- Matching Type and Similarity -->
-                    <p class="card-text">
-                      Matching Type: <%= user.similarity["matching-type"] %>
-                    </p>
-                    <p class="card-text">
-                      Combined Similarity: <%=
-                      user.similarity.combined_similarity %>
-                    </p>
-                    <p class="card-text">
-                      Expertise Level Similarity: <%=
-                      user.similarity.expertise_level_similarity %>
-                    </p>
-                    <p class="card-text">
-                      Good-to-Have Skills Similarity: <%=
-                      user.similarity.good_to_have_skills_similarity %>
-                    </p>
-                    <p class="card-text">
-                      Mandatory Skills Similarity: <%=
-                      user.similarity.mandatory_skills_similarity %>
-                    </p>
-                    <button class="btn btn-primary btn-connect">Connect</button>
-                  </div>
-                  <!-- Right Section (Compatibility Rating) -->
-                  <div class="col-md-3 compatibility-rating">
-                    <!-- Project Creator Rating Badge -->
-                    <span class="badge badge-primary">4.5/5</span>
-                    <h6 class="compatibility-text">Creator Rating</h6>
+                    <div class="right">
+                      <div class="profile_contacts">
+                          <img class="img-responsive" src="images/anas.png" alt="#" />    
+                      </div>
+                    </div>
+                    <div class="bottom_list">
+                      <div class="right_button">
+                        <button type="button" class="btn btn-success btn-xs">
+                          <i class="fa fa-user"></i> <i class="fa-solid fa-comments" style="color: #ffffff;"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-xs">
+                          <i class="fa fa-user"></i> View Profile
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -184,59 +186,52 @@
           <% }); %> <% } else if (role == 'project-creator') { %> <%
           matchedUsers.forEach((user) => { %>
           <!-- Contributor Card -->
-          <div class="col-md-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <!-- Left Section (Picture) -->
-                  <div class="col-md-3">
-                    <div class="circle-image">
-                      <img
-                        src="./images/me.jpeg"
-                        alt="<%= user.contributor.name %>"
-                      />
+          <div class="full price_table padding_infor_info">
+            <div class="row">
+              <!-- column contact -->
+              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
+                <div class="contact_blog">
+                  <div class="contact_inner">
+                    <div class="left">
+                      <h3><%= user.contributor.name %></h3>
+                      <p><strong>About: </strong><%= user.contributor.contributor_type %></p>
+                      <ul class="list-unstyled">
+                          <li><i class="fa fa-envelope-o"></i>  <%= user.contributor.email  %></li>
+                          <li><i class="fa fa-phone"></i>  <%= user.contributor.phone_number %></li>
+                          <li>
+                              <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-star" style="color: #58718a;"></i>  Skills</span></a>
+                              <ul class="collapse list-unstyled" id="element">
+                                <% user.contributor.skills.forEach((skill) => { %>
+                                 <li> <span>&emsp; &emsp;&emsp;<%= skill %></span></a></li>
+                                  <% }); %>
+                              </ul>
+                          </li>
+                          <li><i class="fa-solid fa-book" style="color: #58718a;"></i>&nbsp;  Matching type : <%= user.similarity["matching-type"] %>
+                          
+                        </ul><br><br><br>
+                        <div style="margin-top: 60px; width: max-content;">
+                          <span style="background-color: #3bb017; padding: 5px 10px; margin-right: 10px;color: white; font-weight:350;" title="Combined Similarity"><strong>CS: <%= user.similarity.combined_similarity %></strong></span>
+                          <span style="background-color: #0d49c1; padding: 5px 10px; margin-right: 10px;color: white;font-weight:350;" title="Expertise Level Similarity"><strong>ES: <%= user.similarity.expertise_level_similarity %></strong></span>
+                          <span style="background-color: #a8490e; padding: 5px 10px; margin-right: 10px;color: white;font-weight:350;" title="Good-to-Have Skills Similarity"><strong>GS: <%= user.similarity.good_to_have_skills_similarity %></strong></span>
+                          <span style="background-color: #860f74; padding: 5px 10px;color: white;font-weight:350;" title="Mandatory Skills Similarity"><strong>MS: <%= user.similarity.mandatory_skills_similarity %></strong></span>
+                        </div>  
+                        
                     </div>
-                  </div>
-                  <!-- Middle Section (Name, Skills, Expertise Level) -->
-                  <div class="col-md-6 contributor-info text-center">
-                    <h5 class="card-title"><%= user.contributor.name %></h5>
-                    <p class="card-text">
-                      Skills: <%= user.contributor.skills.join(', ') %>
-                    </p>
-                    <p class="card-text">
-                      Expertise Level: <%= user.contributor.expertise_level %>
-                    </p>
-                    <button
-                      class="btn btn-primary btn-connect"
-                      href="chat.html"
-                    >
-                      Connect
-                    </button>
-                  </div>
-                  <!-- Right Section (Compatibility Rating and Similarity) -->
-                  <div class="col-md-3 compatibility-rating">
-                    <span class="badge badge-primary">90%</span>
-                    <h6 class="compatibility-text">Compatibility Rate</h6>
-
-                    <!-- Similarity -->
-                    <p class="card-text">
-                      Similarity: <%= user.similarity.combined_similarity %>
-                    </p>
-                    <p class="card-text">
-                      Expertise Level Similarity: <%=
-                      user.similarity.expertise_level_similarity %>
-                    </p>
-                    <p class="card-text">
-                      Good-to-Have Skills Similarity: <%=
-                      user.similarity.good_to_have_skills_similarity %>
-                    </p>
-                    <p class="card-text">
-                      Mandatory Skills Similarity: <%=
-                      user.similarity.mandatory_skills_similarity %>
-                    </p>
-                    <p class="card-text">
-                      Matching Type: <%= user.similarity['matching-type'] %>
-                    </p>
+                    <div class="right">
+                      <div class="profile_contacts">
+                          <img class="img-responsive" src="images/anas.png" alt="#" />    
+                      </div>
+                    </div>
+                    <div class="bottom_list">
+                      <div class="right_button">
+                        <button type="button" class="btn btn-success btn-xs">
+                          <i class="fa fa-user"></i> <i class="fa-solid fa-comments" style="color: #ffffff;"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-xs">
+                          <i class="fa fa-user"></i> View Profile
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -391,5 +386,7 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>

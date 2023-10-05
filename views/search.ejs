@@ -280,41 +280,51 @@
 
     <!-- Start search results (cards) section -->
     <% if (projectCreators) { %> <% projectCreators.forEach((user) => { %>
-    <div class="col-md-12 mb-4">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <!-- Left Section (Picture) -->
-            <div class="col-md-3">
-              <div class="circle-image">
-                <img src="./images/me.jpeg" alt="<%= user.name %>" />
+    <!-- Project Creator Card -->
+    <div class="full price_table padding_infor_info">
+      <div class="row">
+        <!-- column contact -->
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
+          <div class="contact_blog">
+            <div class="contact_inner">
+              <div class="left">
+                <h3><%= user.name %></h3>
+                <p><strong>Project Description: </strong><%= user.project_description %></p>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-envelope-o"></i>  <%= user.email  %></li>
+                    <li><i class="fa fa-phone"></i>  <%= user.phone_number %></li>
+                    <li>
+                        <a href="#manElement" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-star" style="color: #58718a;"></i>  Mandatory Skills</span></a>
+                        <ul class="collapse list-unstyled" id="manElement">
+                          <% user.mandatory_skills.forEach((skill) => { %>
+                           <li> <span>&emsp; &emsp;&emsp;<%= skill %></span></a></li>
+                            <% }); %>
+                        </ul>
+                    </li>
+                    <li>
+                      <a href="#goodElement" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-star" style="color: #58718a;"></i>  Desired Skills</span></a>
+                      <ul class="collapse list-unstyled" id="goodElement">
+                        <% user.good_to_have_skills.forEach((skill) => { %>
+                         <li> <span>&emsp; &emsp;&emsp;<%= skill %></span></a></li>
+                          <% }); %>
+                      </ul>
+                  </li>
               </div>
-            </div>
-            <!-- Middle Section (Name, Project Description, Skills, and Rating) -->
-            <div class="col-md-6 proj-creator-info">
-              <h5 class="card-title"><%= user.name %></h5>
-              <!-- Project Description -->
-              <p class="card-text">
-                Project Description: <%= user.project_description %>
-              </p>
-              <!-- Mandatory Skills -->
-              <p class="card-text">
-                Mandatory Skills: <%= user.mandatory_skills.join(', ') %>
-              </p>
-              <!-- Good-to-Have Skills -->
-              <p class="card-text">
-                Good-to-Have Skills: <% if (user.good_to_have_skills) %> <%=
-                user.good_to_have_skills.join(', ') %>
-              </p>
-              <!-- Project Creator Rating -->
-              <p class="card-text">Project Creator Rating: 4.5</p>
-              <button class="btn btn-primary btn-connect">Connect</button>
-            </div>
-            <!-- Right Section (Compatibility Rating) -->
-            <div class="col-md-3 compatibility-rating">
-              <!-- Project Creator Rating Badge -->
-              <span class="badge badge-primary">4.5/5</span>
-              <h6 class="compatibility-text">Creator Rating</h6>
+              <div class="right">
+                <div class="profile_contacts">
+                    <img class="img-responsive" src="images/anas.png" alt="#" />    
+                </div>
+              </div>
+              <div class="bottom_list">
+                <div class="right_button">
+                  <button type="button" class="btn btn-success btn-xs">
+                    <i class="fa fa-user"></i> <i class="fa-solid fa-comments" style="color: #ffffff;"></i>
+                  </button>
+                  <button type="button" class="btn btn-primary btn-xs">
+                    <i class="fa fa-user"></i> View Profile
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -323,31 +333,42 @@
     <% }) %> <% } else if (contributors) { %> <% contributors.forEach((user) =>
     { %>
     <!-- Contributor Card -->
-    <div class="col-md-12 mb-4">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <!-- Left Section (Picture) -->
-            <div class="col-md-3">
-              <div class="circle-image">
-                <img src="./images/me.jpeg" alt="<%= user.name %>" />
+    <div class="full price_table padding_infor_info">
+      <div class="row">
+        <!-- column contact -->
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
+          <div class="contact_blog">
+            <div class="contact_inner">
+              <div class="left">
+                <h3><%= user.name %></h3>
+                <p><strong>About: </strong><%= user.contributor_type %></p>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-envelope-o"></i>  <%= user.email  %></li>
+                    <li><i class="fa fa-phone"></i>  <%= user.phone_number %></li>
+                    <li>
+                        <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-star" style="color: #58718a;"></i>  Skills</span></a>
+                        <ul class="collapse list-unstyled" id="element">
+                          <% user.skills.forEach((skill) => { %>
+                           <li> <span>&emsp; &emsp;&emsp;<%= skill %></span></a></li>
+                            <% }); %>
+                        </ul>
+                    </li>
               </div>
-            </div>
-            <!-- Middle Section (Name, Skills, Expertise Level) -->
-            <div class="col-md-6 contributor-info text-center">
-              <h5 class="card-title"><%= user.name %></h5>
-              <p class="card-text">Skills: <%= user.skills.join(', ') %></p>
-              <p class="card-text">
-                Expertise Level: <%= user.expertise_level %>
-              </p>
-              <button class="btn btn-primary btn-connect" href="chat.html">
-                Connect
-              </button>
-            </div>
-            <!-- Right Section (Compatibility Rating and Similarity) -->
-            <div class="col-md-3 compatibility-rating">
-              <span class="badge badge-primary">90%</span>
-              <h6 class="compatibility-text">Compatibility Rate</h6>
+              <div class="right">
+                <div class="profile_contacts">
+                    <img class="img-responsive" src="images/anas.png" alt="#" />    
+                </div>
+              </div>
+              <div class="bottom_list">
+                <div class="right_button">
+                  <button type="button" class="btn btn-success btn-xs">
+                    <i class="fa fa-user"></i> <i class="fa-solid fa-comments" style="color: #ffffff;"></i>
+                  </button>
+                  <button type="button" class="btn btn-primary btn-xs">
+                    <i class="fa fa-user"></i> View Profile
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

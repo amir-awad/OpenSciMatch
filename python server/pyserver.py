@@ -103,7 +103,7 @@ def get_matched_users():
                         average_word_vectors(
                             project_creator['mandatory_skills'], model, 100)
                     )
-                if (mandatory_skills_similarity > 0.1):
+                if (mandatory_skills_similarity > 0.7):
                     if len(project_creator['good_to_have_skills']) == 0:
                         good_to_have_skills_similarity = 0.0
                     elif set(project_creator['good_to_have_skills']).issubset(set(user_mandatory_skills)):
@@ -132,22 +132,30 @@ def get_matched_users():
                         good_to_have_skills_similarity + expertise_level_similarity
                     )
                     combined_similarity = float(combined_similarity)
+                    if (combined_similarity < 0):
+                        combined_similarity = 0
                     mandatory_skills_similarity = float(
                         mandatory_skills_similarity)
+                    if (mandatory_skills_similarity < 0):
+                        mandatory_skills_similarity = 0
                     good_to_have_skills_similarity = float(
                         good_to_have_skills_similarity)
+                    if (good_to_have_skills_similarity < 0):
+                        good_to_have_skills_similarity = 0
                     expertise_level_similarity = float(
                         expertise_level_similarity)
+                    if (expertise_level_similarity < 0):
+                        expertise_level_similarity = 0
                     matching_type = ""  # Initialize matching_type
 
                     # Initialize the dictionary to hold the contributor and similarity details
                     contributor_with_similarity = {
                         "project_creator": project_creator,
                         "similarity": {
-                            "mandatory_skills_similarity": mandatory_skills_similarity,
-                            "good_to_have_skills_similarity": good_to_have_skills_similarity,
-                            "expertise_level_similarity": expertise_level_similarity,
-                            "combined_similarity": combined_similarity
+                            "mandatory_skills_similarity": round(mandatory_skills_similarity, 2),
+                            "good_to_have_skills_similarity": round(good_to_have_skills_similarity, 2),
+                            "expertise_level_similarity": round(expertise_level_similarity, 2),
+                            "combined_similarity": round(combined_similarity, 2)
                         }
                     }
 
@@ -243,12 +251,20 @@ def get_matched_users():
                     )
 
                     combined_similarity = float(combined_similarity)
+                    if (combined_similarity < 0):
+                        combined_similarity = 0
                     mandatory_skills_similarity = float(
                         mandatory_skills_similarity)
+                    if (mandatory_skills_similarity < 0):
+                        mandatory_skills_similarity = 0
                     good_to_have_skills_similarity = float(
                         good_to_have_skills_similarity)
+                    if (good_to_have_skills_similarity < 0):
+                        good_to_have_skills_similarity = 0
                     expertise_level_similarity = float(
                         expertise_level_similarity)
+                    if (expertise_level_similarity < 0):
+                        expertise_level_similarity = 0
                     print(combined_similarity, " combined similarity")
                     print(mandatory_skills_similarity,
                           " mandatory skills similarity")
@@ -261,10 +277,10 @@ def get_matched_users():
                     contributor_with_similarity = {
                         "contributor": contributor,
                         "similarity": {
-                            "mandatory_skills_similarity": mandatory_skills_similarity,
-                            "good_to_have_skills_similarity": good_to_have_skills_similarity,
-                            "expertise_level_similarity": expertise_level_similarity,
-                            "combined_similarity": combined_similarity
+                            "mandatory_skills_similarity": round(mandatory_skills_similarity, 2),
+                            "good_to_have_skills_similarity": round(good_to_have_skills_similarity, 2),
+                            "expertise_level_similarity": round(expertise_level_similarity, 2),
+                            "combined_similarity": round(combined_similarity, 2)
                         }
                     }
 
