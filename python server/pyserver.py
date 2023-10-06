@@ -103,7 +103,8 @@ def get_matched_users():
                         average_word_vectors(
                             project_creator['mandatory_skills'], model, 100)
                     )
-                if (mandatory_skills_similarity > 0.7):
+
+                if (mandatory_skills_similarity > 0.6):
                     if len(project_creator['good_to_have_skills']) == 0:
                         good_to_have_skills_similarity = 0.0
                     elif set(project_creator['good_to_have_skills']).issubset(set(user_mandatory_skills)):
@@ -159,6 +160,14 @@ def get_matched_users():
                         }
                     }
 
+                    print(combined_similarity, " combined similarity")
+                    print(mandatory_skills_similarity,
+                          " mandatory skills similarity")
+                    print(good_to_have_skills_similarity,
+                          " good to have skills similarity")
+                    print(expertise_level_similarity,
+                          " expertise level similarity")
+
                     # Check if combined similarity = 3 make it a perfect match
                     if combined_similarity == 3:
                         matching_type = "perfect-match"
@@ -169,8 +178,7 @@ def get_matched_users():
                         matching_type = "very-good-match"
                         contributor_with_similarity["similarity"]["matching-type"] = matching_type
 
-                    # Check if expertise level similarity >= 0.65 and mandatory skills similarity >= 0.7
-                    elif expertise_level_similarity >= 0.65 and mandatory_skills_similarity >= 0.7:
+                    elif expertise_level_similarity >= 0.65 and mandatory_skills_similarity >= 0.6:
                         matching_type = "good-match"
                         contributor_with_similarity["similarity"]["matching-type"] = matching_type
 
@@ -223,7 +231,7 @@ def get_matched_users():
                         average_word_vectors(
                             contributor['skills'], model, 100)
                     )
-                if (mandatory_skills_similarity > 0.5):
+                if (mandatory_skills_similarity > 0.6):
                     if len(user['good_to_have_skills']) == 0:
                         good_to_have_skills_similarity = 0.0
                     # elif (all(skill in user_good_to_have_skills for skill in contributor['skills'])):
@@ -295,7 +303,7 @@ def get_matched_users():
                         contributor_with_similarity["similarity"]["matching-type"] = matching_type
 
                     # Check if expertise level similarity >= 0.65 and mandatory skills similarity >= 0.7
-                    elif expertise_level_similarity >= 0.65 and mandatory_skills_similarity >= 0.7:
+                    elif expertise_level_similarity >= 0.65 and mandatory_skills_similarity >= 0.6:
                         matching_type = "good-match"
                         contributor_with_similarity["similarity"]["matching-type"] = matching_type
 
