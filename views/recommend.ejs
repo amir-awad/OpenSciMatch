@@ -136,16 +136,16 @@
                           <li><i class="fa fa-envelope-o"></i>  <%= user.project_creator.email  %></li>
                           <li><i class="fa fa-phone"></i>  <%= user.project_creator.phone_number %></li>
                           <li>
-                              <a href="#manElement" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-star" style="color: #58718a;"></i>  Mandatory Skills</span></a>
-                              <ul class="collapse list-unstyled" id="manElement">
+                              <a href="#manElement_<%= user.project_creator._id%>" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-star" style="color: #58718a;"></i>  Mandatory Skills</span></a>
+                              <ul class="collapse list-unstyled" id="manElement_<%= user.project_creator._id%>">
                                 <% user.project_creator.mandatory_skills.forEach((skill) => { %>
                                  <li> <span>&emsp; &emsp;&emsp;<%= skill %></span></a></li>
                                   <% }); %>
                               </ul>
                           </li>
                           <li>
-                            <a href="#goodElement" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-star" style="color: #58718a;"></i>  Desired Skills</span></a>
-                            <ul class="collapse list-unstyled" id="goodElement">
+                            <a href="#goodElement_<%= user.project_creator._id%>" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-star" style="color: #58718a;"></i>  Desired Skills</span></a>
+                            <ul class="collapse list-unstyled" id="goodElement_<%= user.project_creator._id%>">
                               <% user.project_creator.good_to_have_skills.forEach((skill) => { %>
                                <li> <span>&emsp; &emsp;&emsp;<%= skill %></span></a></li>
                                 <% }); %>
@@ -199,8 +199,8 @@
                           <li><i class="fa fa-envelope-o"></i>  <%= user.contributor.email  %></li>
                           <li><i class="fa fa-phone"></i>  <%= user.contributor.phone_number %></li>
                           <li>
-                              <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-star" style="color: #58718a;"></i>  Skills</span></a>
-                              <ul class="collapse list-unstyled" id="element">
+                              <a href="#element_<%= user.contributor._id%>" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-star" style="color: #58718a;"></i>  Skills</span></a>
+                              <ul class="collapse list-unstyled" id="element_<%= user.contributor._id%>">
                                 <% user.contributor.skills.forEach((skill) => { %>
                                  <li> <span>&emsp; &emsp;&emsp;<%= skill %></span></a></li>
                                   <% }); %>

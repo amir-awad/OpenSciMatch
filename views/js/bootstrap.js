@@ -140,22 +140,28 @@
     },
     getSelectorFromElement: function getSelectorFromElement(element) {
       var selector = element.getAttribute('data-target');
-
+    
       if (!selector || selector === '#') {
         var hrefAttr = element.getAttribute('href');
         selector = hrefAttr && hrefAttr !== '#' ? hrefAttr.trim() : '';
       }
-
+    
       try {
-        return document.querySelector(selector) ? selector : null;
+        // Find the target element
+        var targetElement = document.querySelector(selector);
+    
+        // Check if the target element is already open
+        if (targetElement && targetElement.classList.contains('show')) {
+          // If it's open, set the selector to null to close it
+          selector = null;
+        }
+    
+        return selector;
       } catch (err) {
         return null;
       }
-    },
-    getTransitionDurationFromElement: function getTransitionDurationFromElement(element) {
-      if (!element) {
-        return 0;
-      } // Get transition-duration of the element
+    
+     // Get transition-duration of the element
 
 
       var transitionDuration = $(element).css('transition-duration');
