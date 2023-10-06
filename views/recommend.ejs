@@ -161,11 +161,11 @@
                     </div>
                     <div class="bottom_list">
                       <div class="right_button">
-                        <button type="button" class="btn btn-success btn-xs">
+                        <button type="button" class="btn btn-success btn-xs" id="chatButton">
                           <i class="fa fa-user"></i> <i class="fa-solid fa-comments" style="color: #ffffff;"></i>
                         </button>
                         <button type="button" class="btn btn-primary btn-xs">
-                          <i class="fa fa-user"></i> View Profile
+                          <i class="fa fa-user"></i> Request
                         </button>
                       </div>
                     </div>
@@ -216,11 +216,11 @@
                     </div>
                     <div class="bottom_list">
                       <div class="right_button">
-                        <button type="button" class="btn btn-success btn-xs">
+                        <button type="button" class="btn btn-success btn-xs" id="chatButton">
                           <i class="fa fa-user"></i> <i class="fa-solid fa-comments" style="color: #ffffff;"></i>
-                        </button>
+                      </button>
                         <button type="button" class="btn btn-primary btn-xs">
-                          <i class="fa fa-user"></i> View Profile
+                          <i class="fa fa-user"></i> Request
                         </button>
                       </div>
                     </div>
@@ -380,5 +380,12 @@
     <script src="js/custom.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+      // Add an event listener to the button
+      document.getElementById("chatButton").addEventListener("click", function() {
+          // Redirect to chat.html
+          window.location.href = "chat.html";
+      });
+      </script>
   </body>
 </html>
